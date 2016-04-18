@@ -59,6 +59,9 @@ if(isset($_POST['btn-signup']))
 <form method="post">
 <table align="center" width="30%" border="0">
 <tr>
+<td><p align="center">Admin Registration</p></td>
+</tr>
+<tr>
 <td><input type="text" name="aname" placeholder="User Name" required /></td>
 </tr>
 <tr>

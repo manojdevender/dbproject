@@ -26,7 +26,7 @@ $adminRow=mysql_fetch_array($res);
 <body>
 <div id="header">
 	<div id="left">
-    <label>Hostel Management System Admin Portal</label>
+    <label>Admin Portal</label>
     </div>
     <div id="right">
     	<div id="content">

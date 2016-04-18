@@ -23,7 +23,7 @@ $disp = mysql_fetch_array($msg_query);
 <body>
 <div id="header">
 	<div id="left">
-    <label>Hostel Management System</label>
+    <label>User Portal</label>
     </div>
     <div id="right">
     	<div id="content">

@@ -49,7 +49,7 @@ if(isset($_POST['btn-signup']))
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Coding Cage - Login & Registration System</title>
+<title>User Registration</title>
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 
 </head>
@@ -58,6 +58,9 @@ if(isset($_POST['btn-signup']))
 <div id="login-form">
 <form method="post">
 <table align="center" width="30%" border="0">
+<tr>
+<td><p align="center">User Registration</p></td>
+</tr>
 <tr>
 <td><input type="text" name="uname" placeholder="User Name" required /></td>
 </tr>

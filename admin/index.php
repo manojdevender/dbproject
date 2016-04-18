@@ -38,7 +38,7 @@ if(isset($_POST['adm-login']))
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Admin</title>
+<title>Admin Login</title>
 <link rel="stylesheet" href="../css/style.css" type="text/css" />
 </head>
 <body>
@@ -46,6 +46,9 @@ if(isset($_POST['adm-login']))
 <div id="login-form">
 <form method="post">
 <table align="center" width="30%" border="0">
+<tr>
+<td><p align="center">Admin Login</p></td>
+</tr>
 <tr>
 <td><input type="text" name="email" placeholder="Your Email" required /></td>
 </tr>
