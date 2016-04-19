@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 18, 2016 at 11:10 PM
+-- Generation Time: Apr 20, 2016 at 12:57 AM
 -- Server version: 5.6.28-0ubuntu0.15.04.1
 -- PHP Version: 5.6.4-4ubuntu6.4
 
@@ -30,15 +30,16 @@ CREATE TABLE IF NOT EXISTS `admin` (
 `admin_id` int(5) NOT NULL,
   `adminname` varchar(25) NOT NULL,
   `email` varchar(35) NOT NULL,
-  `password` varchar(50) NOT NULL
+  `password` varchar(50) NOT NULL,
+  `message` varchar(35) DEFAULT NULL
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`admin_id`, `adminname`, `email`, `password`) VALUES
-(1, 'stud', 'studadmin@gmail.com', 'f4c46b2431cac848b28cc71e5903c358');
+INSERT INTO `admin` (`admin_id`, `adminname`, `email`, `password`, `message`) VALUES
+(1, 'stud', 'studadmin@gmail.com', 'f4c46b2431cac848b28cc71e5903c358', '  kk jk km ');
 
 -- --------------------------------------------------------
 
