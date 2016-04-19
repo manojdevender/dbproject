@@ -41,7 +41,7 @@ if(isset($_POST['adm-login']))
 <title>Admin Login</title>
 <link rel="stylesheet" href="../css/style.css" type="text/css" />
 </head>
-<body>
+<body background="../images/background.jpg" />
 <center>
 <div id="login-form">
 <form method="post">

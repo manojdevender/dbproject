@@ -18,23 +18,21 @@ $disp = mysql_fetch_array($msg_query);
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Welcome - <?php echo $userRow['email']; ?></title>
-<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
-<body>
+<body background="images/background.jpg">
 <div id="header">
 	<div id="left">
     <label>User Portal</label>
     </div>
     <div id="right">
     	<div id="content">
-        	Hello <?php echo $userRow['username']; ?>&nbsp;<a href="logout.php?logout">Sign Out</a>
+        	Hello  <a href="profile.php"><?php echo $userRow['username']; ?></a>&nbsp;<a href="logout.php?logout">Sign Out</a>
         </div>
     </div>
 </div>
 
 <div id="body">
-    <br />
-    <a href="profile.php">My profile</a>
 	<br />
     <p>Message is :<?php echo $disp['message']; ?></p>
     <br />

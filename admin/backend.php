@@ -23,14 +23,14 @@ $adminRow=mysql_fetch_array($res);
 <title>Welcome - <?php echo $adminRow['email']; ?></title>
 <link rel="stylesheet" href="../css/style.css" type="text/css" />
 </head>
-<body>
+<body background="../images/background.jpg" />
 <div id="header">
 	<div id="left">
     <label>Admin Portal</label>
     </div>
     <div id="right">
     	<div id="content">
-        	Hello <?php echo $adminRow['adminname']; ?>&nbsp;<a href="adminlogout.php?logout">Sign Out</a>
+        	Hello <a href="admin_profile.php"><?php echo $adminRow['adminname']; ?></a>&nbsp;<a href="adminlogout.php?logout">Sign Out</a>
         </div>
     </div>
 </div>
