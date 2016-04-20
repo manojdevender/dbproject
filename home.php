@@ -35,7 +35,11 @@ $disp = mysql_fetch_array($msg_query);
 </div>
 
 <div id="body">
-<p>Message is :<?php echo $disp['message']; ?></p>
+<!--
+<center>
+<p>Message from admin for testing is :<?//php echo $disp['message']; ?></p>
+</center>
+-->
 <div class="container bootstrap snipets">
    <h1 class="text-center text-muted">Popular Movies</h1>
    <div class="row flow-offset-1">
