@@ -35,7 +35,7 @@ $userRow=mysql_fetch_array($res);
 <center><h1>Popular Movies</h1></center>
 <div class="container">
     <div class="well well-sm">
-        <strong>Category Title</strong>
+        <strong>Choose view</strong>
         <div class="btn-group">
             <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
             </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
@@ -45,7 +45,7 @@ $userRow=mysql_fetch_array($res);
     <div id="products" class="row list-group">
         <div class="item  col-xs-4 col-lg-4">
             <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                <img class="group list-group-image" src="http://placehold.it/150x200/000/fff" alt="" />
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading">
                         Movie 1</h4>
@@ -67,7 +67,7 @@ $userRow=mysql_fetch_array($res);
         </div>
         <div class="item  col-xs-4 col-lg-4">
             <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                <img class="group list-group-image" src="http://placehold.it/150x200/000/fff" alt="" />
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading">
                         Movie 1</h4>
@@ -89,7 +89,7 @@ $userRow=mysql_fetch_array($res);
         </div>
         <div class="item  col-xs-4 col-lg-4">
             <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                <img class="group list-group-image" src="http://placehold.it/150x200/000/fff" alt="" />
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading">
                         Movie 1</h4>
@@ -111,7 +111,7 @@ $userRow=mysql_fetch_array($res);
         </div>
         <div class="item  col-xs-4 col-lg-4">
             <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                <img class="group list-group-image" src="http://placehold.it/150x200/000/fff" alt="" />
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading">
                         Movie 1</h4>
@@ -133,7 +133,7 @@ $userRow=mysql_fetch_array($res);
         </div>
         <div class="item  col-xs-4 col-lg-4">
             <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                <img class="group list-group-image" src="http://placehold.it/150x200/000/fff" alt="" />
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading">
                         Movie 1</h4>
@@ -155,7 +155,7 @@ $userRow=mysql_fetch_array($res);
         </div>
         <div class="item  col-xs-4 col-lg-4">
             <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                <img class="group list-group-image" src="http://placehold.it/150x200/000/fff" alt="" />
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading">
                         Movie 1</h4>
@@ -180,18 +180,10 @@ $userRow=mysql_fetch_array($res);
 
 <center><h1>Latest Movies</h1></center>
 <div class="container">
-    <div class="well well-sm">
-        <strong>Category Title</strong>
-        <div class="btn-group">
-            <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
-            </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
-                class="glyphicon glyphicon-th"></span>Grid</a>
-        </div>
-    </div>
     <div id="products" class="row list-group">
         <div class="item  col-xs-4 col-lg-4">
             <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                <img class="group list-group-image" src="http://placehold.it/150x200/000/fff" alt="" />
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading">
                         Movie 1</h4>
@@ -213,7 +205,7 @@ $userRow=mysql_fetch_array($res);
         </div>
         <div class="item  col-xs-4 col-lg-4">
             <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                <img class="group list-group-image" src="http://placehold.it/150x200/000/fff" alt="" />
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading">
                         Movie 1</h4>
@@ -235,7 +227,7 @@ $userRow=mysql_fetch_array($res);
         </div>
         <div class="item  col-xs-4 col-lg-4">
             <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                <img class="group list-group-image" src="http://placehold.it/150x200/000/fff" alt="" />
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading">
                         Movie 1</h4>
@@ -257,7 +249,7 @@ $userRow=mysql_fetch_array($res);
         </div>
         <div class="item  col-xs-4 col-lg-4">
             <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                <img class="group list-group-image" src="http://placehold.it/150x200/000/fff" alt="" />
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading">
                         Movie 1</h4>
@@ -279,7 +271,7 @@ $userRow=mysql_fetch_array($res);
         </div>
         <div class="item  col-xs-4 col-lg-4">
             <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                <img class="group list-group-image" src="http://placehold.it/150x200/000/fff" alt="" />
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading">
                         Movie 1</h4>
@@ -301,7 +293,7 @@ $userRow=mysql_fetch_array($res);
         </div>
         <div class="item  col-xs-4 col-lg-4">
             <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                <img class="group list-group-image" src="http://placehold.it/150x200/000/fff" alt="" />
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading">
                         Movie 1</h4>
