@@ -30,7 +30,7 @@ if($_SESSION['user']=="")
   </head>
  <body background="images/background.jpg" />
 <div class="container bootstrap snippet">
-    <h1 class="text-primary"><span class="glyphicon glyphicon-user"></span>Edit Profile</h1>
+    <h1 class="text-primary"><span class="glyphicon glyphicon-user"></span>  Edit UserProfile</h1>
       <hr>
   <div class="row">
       <!-- left column -->
@@ -67,10 +67,23 @@ if($_SESSION['user']=="")
             </div>
           </div>
            <div class="form-group">
-            <label class="col-lg-3 control-label">Year:</label>
+            <label class="col-lg-3 control-label">Registered date:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" placeholder="Example: 2016">
+              <input class="form-control" type="date" placeholder=" Date of Registration">
             </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Age:</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="number" placeholder=" In years Ex:25 ">
+            </div>
+          </div>
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Gender</label>  
+              <div class="col-lg-8">
+              <input type="radio" name="gender" value="m" checked> Male<br>
+              <input type="radio" name="gender" value="f"> Female<br>
+              </div>
           </div>
         </form>
       </div>

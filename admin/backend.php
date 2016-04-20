@@ -7,7 +7,13 @@ if(!isset($_SESSION['admin']))
 {
   header("Location: index.php");
 }
-
+/*$actors_query=mysql_query("SELECT * FROM actor");
+$rows = array();
+while ($row = mysql_fetch_array($actors_query, MYSQL_ASSOC)) {
+    $rows[] = $row;
+}
+$no_of_actors=mysql_num_rows($actors_query); 
+*/
 if(isset($_POST['Addmovie']))
 {
   $moviename = mysql_real_escape_string($_POST['moviename']);
@@ -170,6 +176,25 @@ $adminRow=mysql_fetch_array($res);
       
     </div>
   </div>
+<!--
+   <div class="form-group">
+    <label class="col-md-4 control-label" for="cast">Choose Cast</label>
+    <div class="col-md-4">
+      <select id="cast" name="cast" class="form-control">
+        <option value="-1">Select</option>
+        
+        <?//php
+        // for ($x = 0; $x <= $no_of_actors; $x++) {
+            //    ?>
+                 <option value=<?//php echo $rows[$x]['FNAME'] ?> > <?//php echo rows[$x]['FNAME']  ?> </option>
+                 <?//php
+                //} 
+
+        //?>
+      </select>
+     </div>
+  </div>
+-->
   <!-- Button -->
   <div class="form-group">
     <label class="col-md-4 control-label" for="Addingmovie"></label>
@@ -203,8 +228,8 @@ $adminRow=mysql_fetch_array($res);
   <div class="form-group">
     <label class="col-md-4 control-label" for="gender">Gender</label>  
     <div class="col-md-4">
-    <input type="radio" name="gender" value="M" checked> Male<br>
-    <input type="radio" name="gender" value="F"> Female<br>
+    <input type="radio" name="gender" value="m" checked> Male<br>
+    <input type="radio" name="gender" value="f"> Female<br>
     </div>
   </div>
 

@@ -21,6 +21,7 @@ $userRow=mysql_fetch_array($res);
 </head>
 <body background="images/background.jpg">
 <div id="header">
+    
 	<div id="left">
     <label>User Portal</label>
     </div>
