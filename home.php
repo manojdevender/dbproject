@@ -23,14 +23,15 @@ $userRow=mysql_fetch_array($res);
 </head>
 <body background="images/background.jpg">
 <div id="header">
-	<div id="left">
-    <label>User Portal</label>
+	   <div id="left">
+        <label>User Portal</label>
     </div>
     <div id="right">
     	<div id="content">
         	Hello  <a href="profile.php"><?php echo $userRow['username']; ?></a>&nbsp;<a href="logout.php?logout">Sign Out</a>
         </div>
     </div>
+    
 </div>
 <center><h1>Popular Movies</h1></center>
 <div class="container">
@@ -47,8 +48,8 @@ $userRow=mysql_fetch_array($res);
             <div class="thumbnail">
                 <img class="group list-group-image" src="http://placehold.it/150x200/000/fff" alt="" />
                 <div class="caption">
-                    <h4 class="group inner list-group-item-heading">
-                        Movie 1</h4>
+                    <a href="movie.php"><h4 class="group inner list-group-item-heading">
+                        Movie 1</h4></a>
                     <p class="group inner list-group-item-text">
                       Movie description here</p>
                     <div class="row">

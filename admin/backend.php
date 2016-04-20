@@ -13,12 +13,13 @@ if(isset($_POST['Addmovie']))
   $moviename = mysql_real_escape_string($_POST['moviename']);
   $year = $_POST['year'];
   $genre = $_POST['genre'];
+  $description = $_POST['description'];
   $movieres=mysql_query("SELECT id,NAME,YEAR FROM movie WHERE NAME='$moviename' AND YEAR='$year'");
   $moviecount = mysql_num_rows($movieres); 
   
   if($moviecount == 0)
   {
-   $moviequery="INSERT INTO `movie`(`NAME`, `YEAR`) VALUES ('$moviename','$year')";
+   $moviequery="INSERT INTO `movie`(`NAME`, `YEAR`, `description`) VALUES ('$moviename','$year','$description')";
    mysql_query($moviequery);
         ?>
         <script>alert('Movie successfully Added to database!');</script>
@@ -162,7 +163,13 @@ $adminRow=mysql_fetch_array($res);
       </select>
      </div>
   </div>
-
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="description">Movie description</label>  
+    <div class="col-md-4">
+    <input id="description" name="description" type="text" placeholder="Movie description" class="form-control input-md" required="">
+      
+    </div>
+  </div>
   <!-- Button -->
   <div class="form-group">
     <label class="col-md-4 control-label" for="Addingmovie"></label>
