@@ -16,10 +16,7 @@ $userRow=mysql_fetch_array($res);
 $moviequery = mysql_query("SELECT * FROM movie WHERE id=".$_SESSION['movieid']);
 $movierow = mysql_fetch_array($moviequery);
 ?>
-        <script>alert(<?php echo $movierow['NAME'];?>);</script>
-        <?php
-
-?>
+<script>alert(<?php echo $movierow['NAME'];?>);</script>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
