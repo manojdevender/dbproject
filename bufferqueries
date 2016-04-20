@@ -1,0 +1,2 @@
+to change to autoincrement later:
+ALTER TABLE foo MODIFY COLUMN id INT NOT NULL AUTO_INCREMENT;

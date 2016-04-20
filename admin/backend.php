@@ -7,13 +7,7 @@ if(!isset($_SESSION['admin']))
 {
   header("Location: index.php");
 }
-/*if(isset($_POST['msg']))
-{
-    $message = $_POST['message'];
-    $query = "UPDATE admin SET message='$message' WHERE  admin_id=1";
-    mysql_query($query);
-    $confirm ="<b style='color:red'>Page Saved</b>";
-}*/
+
 if(isset($_POST['Addmovie']))
 {
   $moviename = mysql_real_escape_string($_POST['moviename']);
@@ -115,14 +109,6 @@ $adminRow=mysql_fetch_array($res);
         </div>
     </div>
 </div>
-<!---
-<center>
-<p>
-    <textarea placeholder="Message for users!" name="message"></textarea>
-    <input type="submit" value="Save" name="msg"><?//php echo $confirm; ?>
-</p>
-</center>
--->
 <center>
 <h1>Add a new Movie</h1>
 </center>
