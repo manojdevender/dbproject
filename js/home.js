@@ -14,7 +14,3 @@ $(function(){
   
 });
 
-$(function movie(id) {
-      <?php $_SESSION['movieid']=id; ?> 
-     document.location.href="movie.php"; 
-});

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10deb1
+-- version 4.2.12deb2+deb8u1build0.15.04.1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 20, 2016 at 04:43 PM
--- Server version: 5.5.47-0ubuntu0.14.04.1
--- PHP Version: 5.5.9-1ubuntu4.14
+-- Generation Time: Apr 21, 2016 at 04:13 PM
+-- Server version: 5.6.28-0ubuntu0.15.04.1
+-- PHP Version: 5.6.4-4ubuntu6.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -27,12 +27,11 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `actor` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+`ID` int(11) NOT NULL,
   `FNAME` varchar(25) NOT NULL,
   `LNAME` varchar(25) NOT NULL,
-  `GENDER` varchar(1) NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
+  `GENDER` varchar(1) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `actor`
@@ -72,20 +71,20 @@ INSERT INTO `actor` (`ID`, `FNAME`, `LNAME`, `GENDER`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `admin` (
-  `admin_id` int(5) NOT NULL AUTO_INCREMENT,
+`admin_id` int(5) NOT NULL,
   `adminname` varchar(25) NOT NULL,
   `email` varchar(35) NOT NULL,
   `password` varchar(50) NOT NULL,
-  PRIMARY KEY (`admin_id`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `age` int(11) NOT NULL,
+  `country` varchar(25) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`admin_id`, `adminname`, `email`, `password`) VALUES
-(1, 'stud', 'studadmin@gmail.com', 'f4c46b2431cac848b28cc71e5903c358');
+INSERT INTO `admin` (`admin_id`, `adminname`, `email`, `password`, `age`, `country`) VALUES
+(1, 'stud', 'studadmin@gmail.com', 'f4c46b2431cac848b28cc71e5903c358', -100, 'studcountry');
 
 -- --------------------------------------------------------
 
@@ -137,11 +136,10 @@ INSERT INTO `casts` (`pid`, `mid`, `role`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `directors` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `FNAME` varchar(25) NOT NULL,
-  `LNAME` varchar(25) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+  `LNAME` varchar(25) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `directors`
@@ -202,7 +200,8 @@ INSERT INTO `genre` (`mid`, `genre`) VALUES
 (9, 'Crime'),
 (9, 'Family'),
 (10, 'Comedy'),
-(10, 'Romance');
+(10, 'Romance'),
+(11, 'Drama');
 
 -- --------------------------------------------------------
 
@@ -211,12 +210,11 @@ INSERT INTO `genre` (`mid`, `genre`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `movie` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `NAME` varchar(25) NOT NULL,
   `YEAR` date NOT NULL,
-  `description` varchar(200) NOT NULL DEFAULT 'This is a movie description',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+  `description` varchar(200) NOT NULL DEFAULT 'This is a movie description'
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `movie`
@@ -232,7 +230,8 @@ INSERT INTO `movie` (`id`, `NAME`, `YEAR`, `description`) VALUES
 (7, 'The Boss', '2016-04-08', 'This is a movie description'),
 (8, 'Batman v Superman: Dawn o', '2016-04-25', 'This is a movie description'),
 (9, 'Zootopia (2016)', '2016-04-04', 'This is a movie description'),
-(10, 'My Big Fat Greek Wedding ', '2016-04-25', 'This is a movie description');
+(10, 'My Big Fat Greek Wedding ', '2016-04-25', 'This is a movie description'),
+(11, 'Fightclub', '1999-10-15', 'An insomniac office worker, looking for a way to change his life, crosses paths with a devil-may-care soap maker, forming an underground fight club that evolves into something much, much more...');
 
 -- --------------------------------------------------------
 
@@ -274,6 +273,23 @@ CREATE TABLE IF NOT EXISTS `ratings` (
   `rating` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `ratings`
+--
+
+INSERT INTO `ratings` (`mid`, `userid`, `rating`) VALUES
+(1, 6, 10),
+(2, 6, 9),
+(3, 6, 8),
+(4, 6, 7),
+(5, 6, 6),
+(6, 6, 5),
+(7, 6, 4),
+(8, 6, 3),
+(9, 6, 2),
+(10, 6, 1),
+(11, 6, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -288,6 +304,16 @@ CREATE TABLE IF NOT EXISTS `userprofile` (
   `registered` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `userprofile`
+--
+
+INSERT INTO `userprofile` (`userid`, `gender`, `age`, `country`, `registered`) VALUES
+(7, 'm', 15, 'india', '2015-02-15'),
+(6, 'm', 25, 'india', '2016-03-18'),
+(8, 'm', 15, 'africa', '2012-02-25'),
+(9, 'm', 14, 'usa', '2015-07-17');
+
 -- --------------------------------------------------------
 
 --
@@ -295,13 +321,11 @@ CREATE TABLE IF NOT EXISTS `userprofile` (
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
-  `user_id` int(5) NOT NULL AUTO_INCREMENT,
+`user_id` int(5) NOT NULL,
   `username` varchar(25) NOT NULL,
   `email` varchar(35) NOT NULL,
-  `password` varchar(50) NOT NULL,
-  PRIMARY KEY (`user_id`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+  `password` varchar(50) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
@@ -309,10 +333,74 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`user_id`, `username`, `email`, `password`) VALUES
 (8, 'hemu', 'hemu@gmail.com', '2f136c631ad82d127490bc97a6244327'),
-(7, 'manoj', 'manojdevender@gmail.com', 'f0064aa2614c197fe192810ab40b2930'),
+(7, 'abhi', 'abhilaashdarla@gmail.com', 'f0064aa2614c197fe192810ab40b2930'),
 (6, 'bharath', 'bharath0045@gmail.com', '7616b81196ee6fe328497da3f1d9912d'),
-(9, 'hemanth', 'kota@gmail.com', '31d9bb37999652d494ba78feb642a73f');
+(9, 'hemanth', 'kota@gmail.com', '31d9bb37999652d494ba78feb642a73f'),
+(10, 'manoj', 'manojdevender@gmail.com', 'f0064aa2614c197fe192810ab40b2930');
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `actor`
+--
+ALTER TABLE `actor`
+ ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+ ADD PRIMARY KEY (`admin_id`), ADD UNIQUE KEY `email` (`email`);
+
+--
+-- Indexes for table `directors`
+--
+ALTER TABLE `directors`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `movie`
+--
+ALTER TABLE `movie`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+ ADD PRIMARY KEY (`user_id`), ADD UNIQUE KEY `email` (`email`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `actor`
+--
+ALTER TABLE `actor`
+MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
+--
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+MODIFY `admin_id` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `directors`
+--
+ALTER TABLE `directors`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `movie`
+--
+ALTER TABLE `movie`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+MODIFY `user_id` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

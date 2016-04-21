@@ -1,12 +1,50 @@
 <?php
 session_start();
 
-include_once 'dbconnect.php';
+include_once '../dbconnect.php';
 
 if($_SESSION['admin']=="")
 {
   header('location:index.php');
 }
+if(isset($_POST['update']))
+{
+  $adminname = $_POST['adminname'];
+  $email = $_POST['email'];
+  $age = $_POST['age'];
+  $country = $_POST['country'];
+  if(strcmp($adminname,"")!=0){
+      $retval=mysql_query("UPDATE admin SET adminname='$adminname' WHERE admin_id=".$_SESSION['admin']);
+      if(! $retval )
+        {
+          die('Could not update adminname: ' . mysql_error());
+        }
+  }
+  if(strcmp($email,"")!=0){
+      $retval=mysql_query("UPDATE admin SET email='$email' WHERE admin_id=".$_SESSION['admin']);
+      if(! $retval )
+        {
+          die('Could not update email: ' . mysql_error());
+        }
+  }
+  if($age!=0){
+      $retval=mysql_query("UPDATE admin SET age=$age WHERE admin_id=".$_SESSION['admin']);
+      if(! $retval )
+        {
+          die('Could not update age: ' . mysql_error());
+        }
+  }
+  if(strcmp($country,"")!=0){
+      $retval=mysql_query("UPDATE admin SET country='$country' WHERE admin_id=".$_SESSION['admin']);
+      if(! $retval )
+        {
+          die('Could not update country: ' . mysql_error());
+        }
+  }
+}
+
+$res=mysql_query("SELECT * FROM admin WHERE admin_id=".$_SESSION['admin']);
+$adminRow=mysql_fetch_array($res);
 
 ?>
 <!DOCTYPE html>
@@ -20,6 +58,7 @@ if($_SESSION['admin']=="")
 
     <!-- Bootstrap -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -29,8 +68,18 @@ if($_SESSION['admin']=="")
     <![endif]-->
   </head>
  <body background="../images/background.jpg" />
+ <div id="header">
+  <div id="left">
+    <label>Admin Portal</label>
+    </div>
+    <div id="right">
+      <div id="content">
+          Hello <a href="admin_profile.php"><?php echo $adminRow['adminname']; ?></a>&nbsp;<a href="adminlogout.php?logout">Sign Out</a>
+        </div>
+    </div>
+</div>
 <div class="container bootstrap snippet">
-    <h1 class="text-primary"><span class="glyphicon glyphicon-user"></span>Edit Profile</h1>
+    <h1 class="text-primary"><span class="glyphicon glyphicon-user"></span>  Edit AdminProfile</h1>
       <hr>
   <div class="row">
       <!-- left column -->
@@ -47,30 +96,36 @@ if($_SESSION['admin']=="")
       <div class="col-md-9 personal-info">
         <h3>Personal info</h3>
         
-        <form class="form-horizontal" role="form">
+        <form class="form-horizontal" role="form" method="post">
           <div class="form-group">
-            <label class="col-lg-3 control-label">First name:</label>
+            <label class="col-lg-3 control-label">AdminName:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" placeholder="Example: Manoj">
+              <input class="form-control" name="adminname" value="<?php echo $adminRow['adminname']?>"type="text" placeholder="Example: Name">
             </div>
           </div>
           <div class="form-group">
-            <label class="col-lg-3 control-label">Last name:</label>
+            <label class="col-lg-3 control-label">Email:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" placeholder="Example: Devender">
+              <input class="form-control" name="email"  value="<?php echo $adminRow['email']?>"  type="text" placeholder="Example: abc@exampl.com">
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">Country:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" placeholder="Example: India">
+              <input class="form-control" name="country"  value="<?php echo $adminRow['country']?>"  type="text" placeholder="Example: India">
             </div>
           </div>
-           <div class="form-group">
-            <label class="col-lg-3 control-label">Year:</label>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Age:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" placeholder="Example: 2016">
+              <input class="form-control" name="age"  value="<?php echo $adminRow['age']?>" type="number" placeholder=" In years Ex:25 ">
             </div>
+          </div>
+          <div class="form-group">
+               <label class="col-lg-3 control-label">Update profile</label>
+               <div class="col-lg-8">
+                 <button type="submit" name="update" class="btn btn-primary">Update</button>
+               </div>
           </div>
         </form>
       </div>

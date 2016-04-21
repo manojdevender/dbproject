@@ -7,7 +7,45 @@ if($_SESSION['user']=="")
 {
   header('location:index.php');
 }
-
+if(isset($_POST['update']))
+{
+  $username = $_POST['username'];
+  $email = $_POST['email'];
+  $age = $_POST['age'];
+  $country = $_POST['country'];
+  if(strcmp($username,"")!=0){
+      $retval=mysql_query("UPDATE users SET username='$username' WHERE user_id=".$_SESSION['user']);
+      if(! $retval )
+        {
+          die('Could not update username: ' . mysql_error());
+        }
+  }
+  if(strcmp($email,"")!=0){
+      $retval=mysql_query("UPDATE users SET email='$email' WHERE user_id=".$_SESSION['user']);
+      if(! $retval )
+        {
+          die('Could not update email: ' . mysql_error());
+        }
+  }
+  if($age!=0){
+      $retval=mysql_query("UPDATE userprofile SET age=$age WHERE userid=".$_SESSION['user']);
+      if(! $retval )
+        {
+          die('Could not update age: ' . mysql_error());
+        }
+  }
+  if(strcmp($country,"")!=0){
+      $retval=mysql_query("UPDATE userprofile SET country='$country' WHERE userid=".$_SESSION['user']);
+      if(! $retval )
+        {
+          die('Could not update country: ' . mysql_error());
+        }
+  }
+}
+$res=mysql_query("SELECT * FROM users WHERE user_id=".$_SESSION['user']);
+$userRow=mysql_fetch_array($res);
+$resu=mysql_query("SELECT * FROM userprofile WHERE userid=".$_SESSION['user']);
+$userprofileRow=mysql_fetch_array($resu);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,6 +58,7 @@ if($_SESSION['user']=="")
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -29,6 +68,17 @@ if($_SESSION['user']=="")
     <![endif]-->
   </head>
  <body background="images/background.jpg" />
+ <div id="header">
+     <div id="left">
+        <label>User Portal</label>
+    </div>
+    <div id="right">
+      <div id="content">
+          Hello  <a href="profile.php"><?php echo $userRow['username']; ?></a>&nbsp;<a href="logout.php?logout">Sign Out</a>
+        </div>
+    </div>
+    
+</div>
 <div class="container bootstrap snippet">
     <h1 class="text-primary"><span class="glyphicon glyphicon-user"></span>  Edit UserProfile</h1>
       <hr>
@@ -36,7 +86,7 @@ if($_SESSION['user']=="")
       <!-- left column -->
       <div class="col-md-3">
         <div class="text-center">
-          <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+          <img src="" class="avatar img-circle" alt="avatar">
           <h6>Upload a different photo...</h6>
           
           <input type="file" class="form-control">
@@ -47,43 +97,36 @@ if($_SESSION['user']=="")
       <div class="col-md-9 personal-info">
         <h3>Personal info</h3>
         
-        <form class="form-horizontal" role="form">
+        <form class="form-horizontal" role="form" method="post">
           <div class="form-group">
-            <label class="col-lg-3 control-label">First name:</label>
+            <label class="col-lg-3 control-label">UserName:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" placeholder="Example: Manoj">
+              <input class="form-control" name="username" value="<?php echo $userRow['username']?>"type="text" placeholder="Example: Name">
             </div>
           </div>
           <div class="form-group">
-            <label class="col-lg-3 control-label">Last name:</label>
+            <label class="col-lg-3 control-label">Email:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" placeholder="Example: Devender">
+              <input class="form-control" name="email"  value="<?php echo $userRow['email']?>" type="text" placeholder="Example: abc@exampl.com">
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">Country:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" placeholder="Example: India">
-            </div>
-          </div>
-           <div class="form-group">
-            <label class="col-lg-3 control-label">Registered date:</label>
-            <div class="col-lg-8">
-              <input class="form-control" type="date" placeholder=" Date of Registration">
+              <input class="form-control" name="country"  value="<?php echo $userprofileRow['country']?>" type="text" placeholder="Example: India">
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">Age:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="number" placeholder=" In years Ex:25 ">
+              <input class="form-control" name="age" value='<?php echo $userprofileRow['age']?>' type="number" placeholder=" In years Ex:25 ">
             </div>
           </div>
-            <div class="form-group">
-              <label class="col-lg-3 control-label">Gender</label>  
-              <div class="col-lg-8">
-              <input type="radio" name="gender" value="m" checked> Male<br>
-              <input type="radio" name="gender" value="f"> Female<br>
-              </div>
+          <div class="form-group">
+               <label class="col-lg-3 control-label">Update profile</label>
+               <div class="col-lg-8">
+                 <button type="submit" name="update" class="btn btn-primary">Update</button>
+               </div>
           </div>
         </form>
       </div>

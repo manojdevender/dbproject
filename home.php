@@ -20,12 +20,14 @@ $userRow=mysql_fetch_array($res);
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript" src="js/home.js"></script>
+<!--
 <script type="text/javascript">
 (function movie(id) {
-      <?php $_SESSION['movieid']=id; ?> 
+      <?php //$_SESSION['movieid']=id; ?> 
      document.location.href="movie.php"; 
 });
 </script>
+-->
 </head>
 <body background="images/background.jpg">
 <div id="header">
@@ -60,7 +62,7 @@ $userRow=mysql_fetch_array($res);
             <div class="thumbnail">
                 <?php echo '<img class="group list-group-image" src="'.$popularimage .'" alt="Random image" />'; ?>
                 <div class="caption">
-                    <a href="#" onClick= movie(<?php $popularmovierow['id']?><h4 class="group inner list-group-item-heading">
+                    <a href="#"><h4 class="group inner list-group-item-heading">
                         <?php echo $popularmovierow['NAME']?></h4></a>
                     <p class="group inner list-gmages/moviepics/10.jpgroup-item-text">
                       <?php echo $popularmovierow['description']?></p>
@@ -98,7 +100,7 @@ $userRow=mysql_fetch_array($res);
             <div class="thumbnail">
                 <?php echo '<img class="group list-group-image" src="'.$latestimage .'" alt="Random image" />'; ?>
                 <div class="caption">
-                    <a href="movie.php" ><h4 class="group inner list-group-item-heading">
+                    <a href="#" ><h4 class="group inner list-group-item-heading">
                         <?php echo $latestmovierow['NAME']?></h4></a>
                     <p class="group inner list-group-item-text">
                       <?php echo $latestmovierow['description']?></p>
@@ -139,7 +141,7 @@ $userRow=mysql_fetch_array($res);
             <div class="thumbnail">
                 <?php echo '<img class="group list-group-image" src="'.$image .'" alt="Random image" />'; ?>
                 <div class="caption">
-                    <a href="movie.php" ><h4 class="group inner list-group-item-heading">
+                    <a href="#" ><h4 class="group inner list-group-item-heading">
                         <?php echo $movierow['NAME']?></h4></a>
                     <p class="group inner list-group-item-text">
                       <?php echo $movierow['description']?></p>
