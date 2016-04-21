@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 21, 2016 at 04:13 PM
+-- Generation Time: Apr 21, 2016 at 11:44 PM
 -- Server version: 5.6.28-0ubuntu0.15.04.1
 -- PHP Version: 5.6.4-4ubuntu6.4
 
@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `actor` (
-`ID` int(11) NOT NULL,
+`ID` int(20) NOT NULL,
   `FNAME` varchar(25) NOT NULL,
   `LNAME` varchar(25) NOT NULL,
   `GENDER` varchar(1) NOT NULL
@@ -72,10 +72,10 @@ INSERT INTO `actor` (`ID`, `FNAME`, `LNAME`, `GENDER`) VALUES
 
 CREATE TABLE IF NOT EXISTS `admin` (
 `admin_id` int(5) NOT NULL,
-  `adminname` varchar(25) NOT NULL,
-  `email` varchar(35) NOT NULL,
+  `adminname` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
-  `age` int(11) NOT NULL,
+  `age` int(3) NOT NULL,
   `country` varchar(25) NOT NULL
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
@@ -93,9 +93,9 @@ INSERT INTO `admin` (`admin_id`, `adminname`, `email`, `password`, `age`, `count
 --
 
 CREATE TABLE IF NOT EXISTS `casts` (
-  `pid` int(10) NOT NULL,
-  `mid` int(10) NOT NULL,
-  `role` varchar(25) NOT NULL
+  `pid` int(20) NOT NULL,
+  `mid` int(20) NOT NULL,
+  `role` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -166,7 +166,7 @@ INSERT INTO `directors` (`id`, `FNAME`, `LNAME`) VALUES
 
 CREATE TABLE IF NOT EXISTS `genre` (
   `mid` int(10) NOT NULL,
-  `genre` varchar(200) NOT NULL
+  `genre` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -210,10 +210,10 @@ INSERT INTO `genre` (`mid`, `genre`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `movie` (
-`id` int(11) NOT NULL,
-  `NAME` varchar(25) NOT NULL,
+`id` int(20) NOT NULL,
+  `NAME` varchar(50) NOT NULL,
   `YEAR` date NOT NULL,
-  `description` varchar(200) NOT NULL DEFAULT 'This is a movie description'
+  `description` varchar(400) NOT NULL DEFAULT 'This is a movie description'
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
@@ -221,16 +221,16 @@ CREATE TABLE IF NOT EXISTS `movie` (
 --
 
 INSERT INTO `movie` (`id`, `NAME`, `YEAR`, `description`) VALUES
-(1, 'The Huntsman: Winter''s Wa', '2016-04-22', 'This is a movie description'),
-(2, 'Elvis & Nixon', '2016-04-22', 'This is a movie description'),
-(3, 'A Hologram for the King', '2016-04-22', 'This is a movie description'),
-(4, 'Tale of Tales', '2016-04-22', 'This is a movie description'),
-(5, 'Compadres', '2016-04-22', 'This is a movie description'),
-(6, 'The Meddler', '2016-04-22', 'This is a movie description'),
-(7, 'The Boss', '2016-04-08', 'This is a movie description'),
-(8, 'Batman v Superman: Dawn o', '2016-04-25', 'This is a movie description'),
-(9, 'Zootopia (2016)', '2016-04-04', 'This is a movie description'),
-(10, 'My Big Fat Greek Wedding ', '2016-04-25', 'This is a movie description'),
+(1, 'The Huntsman: Winter''s War', '2016-04-22', 'As a war between rival queen sisters Ravenna and Freya escalates, Eric and fellow warrior Sara, members of the Huntsmen army raised to protect Freya, try to conceal their forbidden love as they combat'),
+(2, 'Elvis & Nixon', '2016-04-22', 'The untold true story behind the meeting between the King of Rock ''n Roll and President Nixon, resulting in this revealing, yet humorous moment immortalized in the most requested photograph in the National Archives.'),
+(3, 'A Hologram for the King', '2016-04-22', 'A failed American businessman looks to recoup his losses by traveling to Saudi Arabia and selling his idea to a wealthy monarch.'),
+(4, 'Tale of Tales', '2016-04-22', 'From the bitter quest of the Queen of Longtrellis, to two mysterious sisters who provoke the passion of a king, to the King of Highhills obsessed with a giant Flea, these tales are inspired by the fairytales by Giambattista Basile.\r\n'),
+(5, 'Compadres', '2016-04-22', 'As former cop Garza seeks revenge on Santos, the crime lord who framed him, he forms an unlikely team with a young hacker who successfully stole $10 million from Santos.'),
+(6, 'The Meddler', '2016-04-22', 'An aging widow from New York City follows her daughter to Los Angeles in hopes of starting a new life after her husband passes away.'),
+(7, 'The Boss', '2016-04-08', 'A titan of industry is sent to prison after she''s caught insider trading. When she emerges ready to rebrand herself as America''s latest sweetheart, not everyone she screwed over is so quick to forgive and forget.'),
+(8, 'Batman v Superman: Dawn of Justice', '2016-04-25', 'Fearing that the actions of Superman are left unchecked, Batman takes on the Man of Steel, while the world wrestles with what kind of a hero it really needs.'),
+(9, 'Zootopia (2016)', '2016-04-04', 'In a city of anthropomorphic animals, a rookie bunny cop and a cynical con artist fox must work together to uncover a conspiracy.'),
+(10, 'My Big Fat Greek Wedding ', '2016-04-25', 'A Portokalos family secret brings the beloved characters back together for an even bigger and Greeker wedding.'),
 (11, 'Fightclub', '1999-10-15', 'An insomniac office worker, looking for a way to change his life, crosses paths with a devil-may-care soap maker, forming an underground fight club that evolves into something much, much more...');
 
 -- --------------------------------------------------------
@@ -297,7 +297,7 @@ INSERT INTO `ratings` (`mid`, `userid`, `rating`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `userprofile` (
-  `userid` int(10) NOT NULL,
+  `userid` int(20) NOT NULL,
   `gender` varchar(1) NOT NULL,
   `age` int(3) NOT NULL,
   `country` varchar(25) NOT NULL,
@@ -321,9 +321,9 @@ INSERT INTO `userprofile` (`userid`, `gender`, `age`, `country`, `registered`) V
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
-`user_id` int(5) NOT NULL,
-  `username` varchar(25) NOT NULL,
-  `email` varchar(35) NOT NULL,
+`user_id` int(20) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL
 ) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
@@ -380,7 +380,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `actor`
 --
 ALTER TABLE `actor`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
+MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT for table `admin`
 --
@@ -395,12 +395,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 -- AUTO_INCREMENT for table `movie`
 --
 ALTER TABLE `movie`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `user_id` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+MODIFY `user_id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

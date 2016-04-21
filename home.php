@@ -16,9 +16,15 @@ $userRow=mysql_fetch_array($res);
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Welcome - <?php echo $userRow['email']; ?></title>
  <!-- Bootstrap -->
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/star-rating.css" media="all" type="text/css"/>
+    <link rel="stylesheet" href="css/theme-krajee-fa.css" media="all" type="text/css"/>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="js/star-rating.js" type="text/javascript"></script>
+
 <link rel="stylesheet" href="css/home.css" type="text/css" />
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript" src="js/home.js"></script>
 <!--
 <script type="text/javascript">
@@ -64,16 +70,15 @@ $userRow=mysql_fetch_array($res);
                 <div class="caption">
                     <a href="#"><h4 class="group inner list-group-item-heading">
                         <?php echo $popularmovierow['NAME']?></h4></a>
-                    <p class="group inner list-gmages/moviepics/10.jpgroup-item-text">
-                      <?php echo $popularmovierow['description']?></p>
+                 <!--   <p class="group inner list-group-item-text">
+                      <?php //echo $popularmovierow['description']?></p> -->
                     <p class="group inner list-group-item-text">
                       Date :<?php echo $popularmovierow['YEAR']?></p>
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
                             <div style=" width: 300px; ">
-                              <input id="ratings-hidden" name="rating" type="hidden"> 
-                              <div class="text-right">
-                                 <div class="stars starrr" data-rating="0"></div>
+                              <div class="text-center">
+                                <input type="text" class="kv-fa rating-loading" value="4" data-size="xs" title="">
                                  <button class="btn btn-success btn-lg" type="submit" id="submitrate" style="padding: 2px 11px;">Rate it!</button>
                               </div>
                             </div>
@@ -102,16 +107,15 @@ $userRow=mysql_fetch_array($res);
                 <div class="caption">
                     <a href="#" ><h4 class="group inner list-group-item-heading">
                         <?php echo $latestmovierow['NAME']?></h4></a>
-                    <p class="group inner list-group-item-text">
-                      <?php echo $latestmovierow['description']?></p>
+                  <!--  <p class="group inner list-group-item-text">
+                      <?php// echo $latestmovierow['description']?></p> -->
                     <p class="group inner list-group-item-text">
                       Date :<?php echo $latestmovierow['YEAR']?></p>
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
                             <div style=" width: 300px; ">
-                              <input id="ratings-hidden" name="rating" type="hidden"> 
-                              <div class="text-right">
-                                 <div class="stars starrr" data-rating="0"></div>
+                              <div class="text-center">
+                                <input type="text" class="kv-fa rating-loading" value="4" data-size="xs" title="">
                                  <button class="btn btn-success btn-lg" type="submit" id="submitrate" style="padding: 2px 11px;">Rate it!</button>
                               </div>
                             </div>
@@ -131,7 +135,6 @@ $userRow=mysql_fetch_array($res);
       <?php
       $files = glob("images/moviepics/*.jpg");
       for ($i=0; $i<count($files); $i++){
-         
          $image = $files[$i];
          $movieid = filter_var($image, FILTER_SANITIZE_NUMBER_INT);
          $moviequery = mysql_query("SELECT NAME,YEAR,description FROM movie WHERE id=$movieid");
@@ -143,16 +146,15 @@ $userRow=mysql_fetch_array($res);
                 <div class="caption">
                     <a href="#" ><h4 class="group inner list-group-item-heading">
                         <?php echo $movierow['NAME']?></h4></a>
-                    <p class="group inner list-group-item-text">
-                      <?php echo $movierow['description']?></p>
+                   <!-- <p class="group inner list-group-item-text">
+                      <?php //echo $movierow['description']?></p> -->
                     <p class="group inner list-group-item-text">
                       Date :<?php echo $movierow['YEAR']?></p>
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
                             <div style=" width: 300px; ">
-                              <input id="ratings-hidden" name="rating" type="hidden"> 
-                              <div class="text-right">
-                                 <div class="stars starrr" data-rating="0"></div>
+                              <div class="text-center">
+                                 <input type="text" class="kv-fa rating-loading" value="4" data-size="xs" title="">
                                  <button class="btn btn-success btn-lg" type="submit" id="submitrate" style="padding: 2px 11px;">Rate it!</button>
                               </div>
                             </div>
@@ -167,4 +169,17 @@ $userRow=mysql_fetch_array($res);
 </div>
 
 </body>
+<script>
+    $(document).on('ready', function () {
+        $('.kv-fa').rating({
+            theme: 'krajee-fa',
+            filledStar: '<i class="fa fa-star"></i>',
+            emptyStar: '<i class="fa fa-star-o"></i>'
+        });
+        $('.rating,.kv-fa').on(
+                'change', function () {
+                    console.log('Rating selected: ' + $(this).val());
+                });
+    });
+</script>
 </html>
