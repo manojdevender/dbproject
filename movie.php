@@ -28,7 +28,6 @@ $movierow = mysql_fetch_array($moviequery);
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="css/movie.css" type="text/css" />
 <script type="text/javascript" href="js/movie.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 <body background="images/background.jpg">
 <div id="header">

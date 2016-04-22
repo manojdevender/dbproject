@@ -17,11 +17,11 @@ $userRow=mysql_fetch_array($res);
 <title>Welcome - <?php echo $userRow['email']; ?></title>
  <!-- Bootstrap -->
 
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/star-rating.css" media="all" type="text/css"/>
     <link rel="stylesheet" href="css/theme-krajee-fa.css" media="all" type="text/css"/>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="js/jquery.min.js"></script>
     <script src="js/star-rating.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="css/home.css" type="text/css" />
@@ -38,7 +38,7 @@ $userRow=mysql_fetch_array($res);
 <body background="images/background.jpg">
 <div id="header">
 	   <div id="left">
-        <label>User Portal</label>
+        <label>Movie Rater</label>
     </div>
     <div id="right">
     	<div id="content">
@@ -60,25 +60,30 @@ $userRow=mysql_fetch_array($res);
     <div id="products" class="row list-group">
       <?php
        $moviepopularquery=mysql_query("SELECT * FROM (SELECT mid as id, AVG(ratings.rating) as average FROM ratings GROUP BY mid) t1 NATURAL JOIN movie ORDER BY average DESC LIMIT 6");
+      
       for ($i=0; $i<6; $i++){
          $popularmovierow = mysql_fetch_assoc($moviepopularquery);
          $popularimage = "images/moviepics/".$popularmovierow['id'].".jpg";
+         $Popularid=$popularmovierow['id'];
+         $result=mysql_query("SELECT * FROM ratings WHERE mid='$Popularid' AND userid=".$_SESSION['user']);
+         $myrating=mysql_fetch_array($result);
          ?>
         <div class="item  col-xs-4 col-lg-4">
             <div class="thumbnail">
                 <?php echo '<img class="group list-group-image" src="'.$popularimage .'" alt="Random image" />'; ?>
                 <div class="caption">
-                    <a href="#"><h4 class="group inner list-group-item-heading">
-                        <?php echo $popularmovierow['NAME']?></h4></a>
-                 <!--   <p class="group inner list-group-item-text">
-                      <?php //echo $popularmovierow['description']?></p> -->
+                    <a href="movie.php?id=<?php echo $Popularid ?>"><h4 class="group inner list-group-item-heading">
+                        <?php echo $popularmovierow['NAME'];
+                              echo " ";
+                              echo round($popularmovierow['average'],2);
+                        ?></h4></a>
                     <p class="group inner list-group-item-text">
                       Date :<?php echo $popularmovierow['YEAR']?></p>
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
                             <div style=" width: 300px; ">
                               <div class="text-center">
-                                <input type="text" class="kv-fa rating-loading" value="4" data-size="xs" title="">
+                                <input type="text" class="kv-fa rating-loading" value='<?php echo $myrating['rating']?>' data-size="xs" title="">
                                  <button class="btn btn-success btn-lg" type="submit" id="submitrate" style="padding: 2px 11px;">Rate it!</button>
                               </div>
                             </div>
@@ -100,22 +105,28 @@ $userRow=mysql_fetch_array($res);
       for ($i=0; $i<6; $i++){
          $latestmovierow = mysql_fetch_assoc($movielatestquery);
          $latestimage = "images/moviepics/".$latestmovierow['id'].".jpg";
+         $Latestid=$latestmovierow['id'];
+         $result=mysql_query("SELECT * FROM ratings WHERE mid='$Latestid' AND userid=".$_SESSION['user']);
+         $myrating=mysql_fetch_array($result);
+         $averagequery=mysql_query("SELECT * FROM (SELECT mid, AVG(ratings.rating) as average FROM ratings GROUP BY mid) t1 WHERE mid='$Latestid'");
+         $averagerating=mysql_fetch_array($averagequery);
          ?>
         <div class="item  col-xs-4 col-lg-4">
             <div class="thumbnail">
                 <?php echo '<img class="group list-group-image" src="'.$latestimage .'" alt="Random image" />'; ?>
                 <div class="caption">
-                    <a href="#" ><h4 class="group inner list-group-item-heading">
-                        <?php echo $latestmovierow['NAME']?></h4></a>
-                  <!--  <p class="group inner list-group-item-text">
-                      <?php// echo $latestmovierow['description']?></p> -->
+                    <a href="movie.php?id=<?php echo $Latestid ?>" ><h4 class="group inner list-group-item-heading">
+                        <?php echo $latestmovierow['NAME'];
+                              echo " ";
+                              echo round($averagerating['average'],2);
+                        ?></h4></a>
                     <p class="group inner list-group-item-text">
                       Date :<?php echo $latestmovierow['YEAR']?></p>
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
                             <div style=" width: 300px; ">
                               <div class="text-center">
-                                <input type="text" class="kv-fa rating-loading" value="4" data-size="xs" title="">
+                                <input type="text" class="kv-fa rating-loading" value='<?php echo $myrating['rating']?>' data-size="xs" title="">
                                  <button class="btn btn-success btn-lg" type="submit" id="submitrate" style="padding: 2px 11px;">Rate it!</button>
                               </div>
                             </div>
@@ -139,22 +150,27 @@ $userRow=mysql_fetch_array($res);
          $movieid = filter_var($image, FILTER_SANITIZE_NUMBER_INT);
          $moviequery = mysql_query("SELECT NAME,YEAR,description FROM movie WHERE id=$movieid");
          $movierow = mysql_fetch_array($moviequery);
+         $resultall=mysql_query("SELECT * FROM ratings WHERE mid='$movieid' AND userid=".$_SESSION['user']);
+         $myratingall=mysql_fetch_array($resultall);
+         $averagequeryall=mysql_query("SELECT * FROM (SELECT mid, AVG(ratings.rating) as average FROM ratings GROUP BY mid) t1 WHERE mid='$movieid'");
+         $averageratingall=mysql_fetch_array($averagequeryall);
          ?>
         <div class="item  col-xs-4 col-lg-4">
             <div class="thumbnail">
                 <?php echo '<img class="group list-group-image" src="'.$image .'" alt="Random image" />'; ?>
                 <div class="caption">
-                    <a href="#" ><h4 class="group inner list-group-item-heading">
-                        <?php echo $movierow['NAME']?></h4></a>
-                   <!-- <p class="group inner list-group-item-text">
-                      <?php //echo $movierow['description']?></p> -->
+                    <a href="movie.php?id=<?php echo $movieid ?>" ><h4 class="group inner list-group-item-heading">
+                        <?php echo $movierow['NAME'];
+                         echo " ";
+                         echo round($averageratingall['average'],2);
+                        ?></h4></a>
                     <p class="group inner list-group-item-text">
                       Date :<?php echo $movierow['YEAR']?></p>
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
                             <div style=" width: 300px; ">
                               <div class="text-center">
-                                 <input type="text" class="kv-fa rating-loading" value="4" data-size="xs" title="">
+                                 <input type="text" class="kv-fa rating-loading"  value='<?php echo $myratingall['rating']?>' data-size="xs" title="">
                                  <button class="btn btn-success btn-lg" type="submit" id="submitrate" style="padding: 2px 11px;">Rate it!</button>
                               </div>
                             </div>
