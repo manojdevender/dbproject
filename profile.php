@@ -12,8 +12,27 @@ if(isset($_POST['update']))
   $username = $_POST['username'];
   $email = $_POST['email'];
   $age = $_POST['age'];
+  $gender= $_POST['gender'];
   $country = $_POST['country'];
-  if(strcmp($username,"")!=0){
+  $registereddate=$_POST['date'];
+
+  $updatequery=mysql_query("SELECT * FROM userprofile WHERE userid=".$_SESSION['user']);
+  $count=mysql_num_rows($updatequery);
+  if($count==1){
+      $retval=mysql_query("UPDATE userprofile SET gender='$gender' ,age='$age',country='$country',registered='$registereddate' WHERE userid=".$_SESSION['user']);
+       if(! $retval )
+        {
+          die('Could not update username: ' . mysql_error());
+        }
+    }
+  else{
+    $retval=mysql_query("INSERT INTO `userprofile`(`userid`, `gender`, `age`, `country`, `registered`) VALUES (".$_SESSION['user'].",'$gender','$age','$country','$date')");
+      if(! $retval )
+        {
+          die('Could not update username: ' . mysql_error());
+        }
+  }
+   if(strcmp($username,"")!=0){
       $retval=mysql_query("UPDATE users SET username='$username' WHERE user_id=".$_SESSION['user']);
       if(! $retval )
         {
@@ -25,20 +44,6 @@ if(isset($_POST['update']))
       if(! $retval )
         {
           die('Could not update email: ' . mysql_error());
-        }
-  }
-  if($age!=0){
-      $retval=mysql_query("UPDATE userprofile SET age=$age WHERE userid=".$_SESSION['user']);
-      if(! $retval )
-        {
-          die('Could not update age: ' . mysql_error());
-        }
-  }
-  if(strcmp($country,"")!=0){
-      $retval=mysql_query("UPDATE userprofile SET country='$country' WHERE userid=".$_SESSION['user']);
-      if(! $retval )
-        {
-          die('Could not update country: ' . mysql_error());
         }
   }
 }
@@ -100,25 +105,39 @@ $userprofileRow=mysql_fetch_array($resu);
           <div class="form-group">
             <label class="col-lg-3 control-label">UserName:</label>
             <div class="col-lg-8">
-              <input class="form-control" name="username" value="<?php echo $userRow['username']?>"type="text" placeholder="Example: Name">
+              <input class="form-control" name="username" value="<?php echo $userRow['username']?>"type="text" placeholder="Example: Name" required="">
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">Email:</label>
             <div class="col-lg-8">
-              <input class="form-control" name="email"  value="<?php echo $userRow['email']?>" type="text" placeholder="Example: abc@exampl.com">
+              <input class="form-control" name="email"  value="<?php echo $userRow['email']?>" type="text" placeholder="Example: abc@exampl.com" required="">
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">Country:</label>
             <div class="col-lg-8">
-              <input class="form-control" name="country"  value="<?php echo $userprofileRow['country']?>" type="text" placeholder="Example: India">
+              <input class="form-control" name="country"  value="<?php echo $userprofileRow['country']?>" type="text" placeholder="Example: India" required="">
             </div>
+          </div>
+          <div class="form-group">
+              <label class="col-lg-3 control-label" for="gender">Gender</label>  
+              <div class="col-lg-8">
+              <input type="radio" name="gender" value="male" checked> Male<br>
+              <input type="radio" name="gender" value="female"> Female<br>
+              <input type="radio" name="gender" value="other"> Other
+              </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">Age:</label>
             <div class="col-lg-8">
-              <input class="form-control" name="age" value='<?php echo $userprofileRow['age']?>' type="number" placeholder=" In years Ex:25 ">
+              <input class="form-control" name="age" value='<?php echo $userprofileRow['age']?>' type="number" placeholder=" In years Ex:25 "required="">
+            </div>
+          </div>
+           <div class="form-group">
+            <label class="col-lg-3 control-label">Date Registered:</label>
+            <div class="col-lg-8">
+              <input class="form-control" name="date"  value="<?php echo $userprofileRow['date']?>" type="date" placeholder="" required="">
             </div>
           </div>
           <div class="form-group">

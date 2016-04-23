@@ -116,9 +116,12 @@ $adminRow=mysql_fetch_array($res);
         </div>
     </div>
 </div>
+<div class="container">       
+        <div class="column">
+<div class="col-md-12">
 <center>
 <h1>Add a new Movie</h1>
-</center>
+</center> 
 <form class="form-horizontal" method="post">
   <fieldset>
   <!-- Text input-->
@@ -204,6 +207,8 @@ $adminRow=mysql_fetch_array($res);
   </div>
   </fieldset>
 </form>
+</div>
+<div class="col-md-12">
 <center>
 <h1>Add a new Actor/Actress</h1>
 </center>
@@ -243,6 +248,8 @@ $adminRow=mysql_fetch_array($res);
 
   </fieldset>
 </form>
+</div>
+<div class="col-md-12">
 <center>
 <h1>Add a new Director</h1>
 </center>
@@ -274,5 +281,9 @@ $adminRow=mysql_fetch_array($res);
 
   </fieldset>
 </form>
+</div>
+</div>
+</div>
+
 </body>
 </html>
