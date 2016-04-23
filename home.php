@@ -98,7 +98,7 @@ $userRow=mysql_fetch_array($res);
                     <a href="movie.php?id=<?php echo $Popularid ?>"><h4 class="group inner list-group-item-heading">
                         <?php echo $popularmovierow['NAME'];
                               echo " ";
-                              echo round($popularmovierow['average'],2);
+                              echo round($popularmovierow['average'],1);
                         ?></h4></a>
                     <p class="group inner list-group-item-text">
                       Date :<?php echo $popularmovierow['YEAR']?></p>
@@ -150,7 +150,7 @@ $userRow=mysql_fetch_array($res);
                     <a href="movie.php?id=<?php echo $Latestid ?>" ><h4 class="group inner list-group-item-heading">
                         <?php echo $latestmovierow['NAME'];
                               echo " ";
-                              echo round($tt,2);
+                              echo round($tt,1);
                         ?></h4></a>
                     <p class="group inner list-group-item-text">
                       Date :<?php echo $latestmovierow['YEAR']?></p>
@@ -206,7 +206,7 @@ $userRow=mysql_fetch_array($res);
                     <a href="movie.php?id=<?php echo $movieid ?>" ><h4 class="group inner list-group-item-heading">
                         <?php echo $allmovierow['NAME'];
                          echo " ";
-                         echo round($tt1,2);
+                         echo round($tt1,1);
                         ?></h4></a>
                     <p class="group inner list-group-item-text">
                       Date :<?php echo $allmovierow['YEAR']?></p>

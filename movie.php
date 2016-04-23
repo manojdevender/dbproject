@@ -76,8 +76,29 @@ $movierow = mysql_fetch_array($moviequery);
             <div class="col-sm-4">
              
                  <?php
+                     $directorquery=mysql_query("SELECT * FROM moviedirectors,movie,directors WHERE moviedirectors.mid=movie.id AND moviedirectors.did=directors.id AND movie.id='$movieid'");
+                     $directorsarray=mysql_fetch_array($directorquery);
+                     $countdirectors=mysql_num_rows($directorquery);
+                     if($countdirectors==1){
+                        $director=$directorsarray['FNAME']." ".$directorsarray['LNAME'];
+                     }
+                     else{
+                        $director="no director";
+                     }
+                     $genrequery=mysql_query("SELECT * FROM genre,movie WHERE movie.id=genre.mid AND movie.id='$movieid'");
+                     $countgenre=mysql_num_rows($genrequery);
+                     if($countgenre!=0){
+                        $genre="";
+                        for ($i=0; $i < $countgenre; $i++) { 
+                             $genrerow=mysql_fetch_assoc($genrequery);
+                             $genre=$genre." ".$genrerow['genre'];
+                        }
+                       
+                     }
+                     else{
+                        $genre="N.A";
+                     }
                      $moviequery=mysql_query("SELECT * FROM movie WHERE id='$movieid'");
-                     $movierow=mysql_fetch_array($moviequery);
                      $result=mysql_query("SELECT * FROM ratings WHERE mid='$movieid' AND userid=".$_SESSION['user']);
                      $countuser = mysql_num_rows($result);
                      if($countuser ==1){
@@ -108,7 +129,12 @@ $movierow = mysql_fetch_array($moviequery);
                         ?></h4>
                     <p>
                       Date :<?php echo $movierow['YEAR']?></p>
-                   
+                    <p>
+                      Director: <?php echo $director?>
+                    </p>
+                    <p>
+                      Genre: <?php echo $genre?>
+                    </p>
                     <div class="row">
                         <div>
                             <div style="">
@@ -225,7 +251,7 @@ $movierow = mysql_fetch_array($moviequery);
         <div class="row">
              <div class="col-sm-12">
                 <hr/>
-                 <p>Description :<?php echo $movierow['description']?></p>
+                 <p style="font-size:140%;color:#1a1a00" >Description :<?php echo $movierow['description']?></p>
              </div>
         </div>
         <!--
@@ -254,7 +280,7 @@ $movierow = mysql_fetch_array($moviequery);
                 <div class="review-block">
                     <div class="row">
                         <div class="col-sm-3">
-                            <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
+                            <img src="images/user.png" class="img-rounded">
                             <div class="review-block-name"><a href="#"><?php echo $usercommentrow['username']?></a></div>
                             <div class="review-block-date"><?php echo $usercommentrow['email']?></div>
                         </div>

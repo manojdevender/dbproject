@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 23, 2016 at 10:13 PM
+-- Generation Time: Apr 23, 2016 at 11:42 PM
 -- Server version: 5.6.28-0ubuntu0.15.04.1
 -- PHP Version: 5.6.4-4ubuntu6.4
 
@@ -224,7 +224,10 @@ CREATE TABLE IF NOT EXISTS `history` (
 
 INSERT INTO `history` (`userid`, `mid`, `rating`) VALUES
 (10, 1, 4),
-(11, 8, 4);
+(11, 8, 4),
+(10, 8, 5),
+(10, 8, 4),
+(10, 8, 4);
 
 -- --------------------------------------------------------
 
