@@ -6,6 +6,26 @@ if(!isset($_SESSION['user']))
 {
 	header("Location: index.php");
 }
+if( $_GET["rateit"] ) {
+    $myrating=$_GET['myrating'];
+    $mid_rating=$_GET['rateit'];
+    $q=mysql_query("SELECT * FROM ratings WHERE `mid`='$mid_rating' AND userid=".$_SESSION['user']);
+    $c=mysql_num_rows($q);
+    if($c==1){
+    $updateresult=mysql_query("UPDATE `ratings` SET `rating`='$myrating' WHERE `mid`='$mid_rating' AND userid=".$_SESSION['user']);
+    }
+    else{
+    $insertresult=mysql_query("INSERT INTO `ratings`(`mid`, `userid`, `rating`) VALUES ($mid_rating,".$_SESSION['user'].",$myrating)");
+    }
+
+}
+
+/*
+if(isset($_POST['rateit']))
+{
+$myrating=$_POST['myrating'];
+
+}*/
 $res=mysql_query("SELECT * FROM users WHERE user_id=".$_SESSION['user']);
 $userRow=mysql_fetch_array($res);
 
@@ -64,9 +84,12 @@ $userRow=mysql_fetch_array($res);
       for ($i=0; $i<6; $i++){
          $popularmovierow = mysql_fetch_assoc($moviepopularquery);
          $popularimage = "images/moviepics/".$popularmovierow['id'].".jpg";
+         if(file_exists($popularimage)==0){$popularimage = "images/moviepics/default.jpg";}
          $Popularid=$popularmovierow['id'];
          $result=mysql_query("SELECT * FROM ratings WHERE mid='$Popularid' AND userid=".$_SESSION['user']);
-         $myrating=mysql_fetch_array($result);
+         $countuser = mysql_num_rows($result);
+         if($countuser ==1){$myrating=mysql_fetch_array($result);$yy = $myrating['rating'];}
+         else{$yy =0;}
          ?>
         <div class="item  col-xs-4 col-lg-4">
             <div class="thumbnail">
@@ -83,8 +106,10 @@ $userRow=mysql_fetch_array($res);
                         <div class="col-xs-12 col-md-6">
                             <div style=" width: 300px; ">
                               <div class="text-center">
-                                <input type="text" class="kv-fa rating-loading" value='<?php echo $myrating['rating']?>' data-size="xs" title="">
-                                 <button class="btn btn-success btn-lg" type="submit" id="submitrate" style="padding: 2px 11px;">Rate it!</button>
+                               <form action = "<?php $_PHP_SELF ?>" method = "GET">
+                                <input type="text" class="kv-fa rating-loading" name="myrating" value='<?php echo $yy?>' data-size="xs" title="">
+                                <button class="btn btn-success btn-lg" name="rateit" value='<?php echo $Popularid?>' id="submitrate" style="padding: 2px 11px;">Rate it!</button>
+                                </form>
                               </div>
                             </div>
                         </div>
@@ -105,11 +130,16 @@ $userRow=mysql_fetch_array($res);
       for ($i=0; $i<6; $i++){
          $latestmovierow = mysql_fetch_assoc($movielatestquery);
          $latestimage = "images/moviepics/".$latestmovierow['id'].".jpg";
+         if(file_exists($latestimage)==0){$latestimage = "images/moviepics/default.jpg";}
          $Latestid=$latestmovierow['id'];
          $result=mysql_query("SELECT * FROM ratings WHERE mid='$Latestid' AND userid=".$_SESSION['user']);
-         $myrating=mysql_fetch_array($result);
+         $countuser = mysql_num_rows($result);
+         if($countuser ==1){$myrating=mysql_fetch_array($result);$yy = $myrating['rating'];}
+         else{$yy =0;}
          $averagequery=mysql_query("SELECT * FROM (SELECT mid, AVG(ratings.rating) as average FROM ratings GROUP BY mid) t1 WHERE mid='$Latestid'");
-         $averagerating=mysql_fetch_array($averagequery);
+         $countaverage = mysql_num_rows($averagequery);
+         if($countaverage ==1){$averagerating=mysql_fetch_array($averagequery);$tt = $averagerating['average'];}
+         else{$tt = 0;}
          ?>
         <div class="item  col-xs-4 col-lg-4">
             <div class="thumbnail">
@@ -118,7 +148,7 @@ $userRow=mysql_fetch_array($res);
                     <a href="movie.php?id=<?php echo $Latestid ?>" ><h4 class="group inner list-group-item-heading">
                         <?php echo $latestmovierow['NAME'];
                               echo " ";
-                              echo round($averagerating['average'],2);
+                              echo round($tt,2);
                         ?></h4></a>
                     <p class="group inner list-group-item-text">
                       Date :<?php echo $latestmovierow['YEAR']?></p>
@@ -126,8 +156,10 @@ $userRow=mysql_fetch_array($res);
                         <div class="col-xs-12 col-md-6">
                             <div style=" width: 300px; ">
                               <div class="text-center">
-                                <input type="text" class="kv-fa rating-loading" value='<?php echo $myrating['rating']?>' data-size="xs" title="">
-                                 <button class="btn btn-success btn-lg" type="submit" id="submitrate" style="padding: 2px 11px;">Rate it!</button>
+                                <form action = "<?php $_PHP_SELF ?>" method = "GET">
+                                <input type="text" class="kv-fa rating-loading" name="myrating" value='<?php echo $yy?>' data-size="xs" title="">
+                                <button class="btn btn-success btn-lg" name="rateit" type="number" value='<?php echo $Latestid?>' id="submitrate" style="padding: 2px 11px;">Rate it!</button>
+                                </form>
                               </div>
                             </div>
                         </div>
@@ -139,39 +171,51 @@ $userRow=mysql_fetch_array($res);
         ?>
     </div>
 </div>
-
 <center><h1>All Movies</h1></center>
 <div class="container">
     <div id="products" class="row list-group">
       <?php
-      $files = glob("images/moviepics/*.jpg");
-      for ($i=0; $i<count($files); $i++){
-         $image = $files[$i];
-         $movieid = filter_var($image, FILTER_SANITIZE_NUMBER_INT);
-         $moviequery = mysql_query("SELECT NAME,YEAR,description FROM movie WHERE id=$movieid");
-         $movierow = mysql_fetch_array($moviequery);
+      // $files = glob("images/moviepics/*.jpg");
+      $movieallquery=mysql_query("SELECT * FROM movie ");
+      $Count = mysql_num_rows($movieallquery);
+      for ($i=0; $i<$Count; $i++){
+         $allmovierow = mysql_fetch_assoc($movieallquery);
+         // echo $allmovierow['id'];
+         $movieid = $allmovierow['id'];
+         $image = "images/moviepics/".$movieid.".jpg";
+         if(file_exists($image)==0){$image = "images/moviepics/default.jpg";}
          $resultall=mysql_query("SELECT * FROM ratings WHERE mid='$movieid' AND userid=".$_SESSION['user']);
-         $myratingall=mysql_fetch_array($resultall);
+         $countuserall = mysql_num_rows($resultall);
+         if($countuserall ==1){
+            $myratingall=mysql_fetch_array($resultall);$yy1 = $myratingall['rating'];
+         }
+         else{
+            $yy1 =0;
+        }
          $averagequeryall=mysql_query("SELECT * FROM (SELECT mid, AVG(ratings.rating) as average FROM ratings GROUP BY mid) t1 WHERE mid='$movieid'");
-         $averageratingall=mysql_fetch_array($averagequeryall);
+         $countaverageall = mysql_num_rows($averagequeryall);
+         if($countaverageall ==1){$averageratingall=mysql_fetch_array($averagequeryall); $tt1 = $averageratingall['average'];}
+         else{$tt1 = 0;}
          ?>
         <div class="item  col-xs-4 col-lg-4">
             <div class="thumbnail">
                 <?php echo '<img class="group list-group-image" src="'.$image .'" alt="Random image" />'; ?>
                 <div class="caption">
                     <a href="movie.php?id=<?php echo $movieid ?>" ><h4 class="group inner list-group-item-heading">
-                        <?php echo $movierow['NAME'];
+                        <?php echo $allmovierow['NAME'];
                          echo " ";
-                         echo round($averageratingall['average'],2);
+                         echo round($tt1,2);
                         ?></h4></a>
                     <p class="group inner list-group-item-text">
-                      Date :<?php echo $movierow['YEAR']?></p>
+                      Date :<?php echo $allmovierow['YEAR']?></p>
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
                             <div style=" width: 300px; ">
                               <div class="text-center">
-                                 <input type="text" class="kv-fa rating-loading"  value='<?php echo $myratingall['rating']?>' data-size="xs" title="">
-                                 <button class="btn btn-success btn-lg" type="submit" id="submitrate" style="padding: 2px 11px;">Rate it!</button>
+                                <form action = "<?php $_PHP_SELF ?>" method = "GET">
+                                 <input type="text" class="kv-fa rating-loading" name="myrating" value='<?php echo $yy1?>' data-size="xs" title="">
+                                 <button class="btn btn-success btn-lg" name="rateit" value='<?php echo $movieid?>' id="submitrate" style="padding: 2px 11px;">Rate it!</button>
+                                </form>
                               </div>
                             </div>
                         </div>
