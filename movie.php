@@ -12,18 +12,25 @@ if( $_GET["id"] ) {
 else{
     header("Location: home.php");
 }
-if( $_GET["rateit"] ) {
-    $myrating=$_GET['myrating'];
-    $mid_rating=$_GET['rateit'];
+/*
+if( $_POST["commentit"] ) {
+    $comment=$_POST['comment'];
+    echo $comment;
+    }*/
+if( $_POST["rateit"] ) {
+    $myrating=$_POST['myrating'];
+    $mid_rating=$_POST['rateit'];
+    $comment=$_POST['comment'];
     $q=mysql_query("SELECT * FROM ratings WHERE `mid`='$mid_rating' AND userid=".$_SESSION['user']);
     $c=mysql_num_rows($q);
     if($c==1){
-    $updateresult=mysql_query("UPDATE `ratings` SET `rating`='$myrating' WHERE `mid`='$mid_rating' AND userid=".$_SESSION['user']);
+    $updateresult=mysql_query("UPDATE `ratings` SET `rating`='$myrating',`comment`='$comment'  WHERE `mid`='$mid_rating' AND userid=".$_SESSION['user']);
     }
     else{
-    $insertresult=mysql_query("INSERT INTO `ratings`(`mid`, `userid`, `rating`) VALUES ($mid_rating,".$_SESSION['user'].",$myrating)");
+    $insertresult=mysql_query("INSERT INTO `ratings`(`mid`, `userid`, `rating` ,`comment`) VALUES ($mid_rating,".$_SESSION['user'].",$myrating,$comment)");
     }
 }
+$ratingarray= array("Awww NOOO", "Very Poor", "Poor","Ok","Good", "Excellent");
 /*
 if(!isset($_SESSION["movieid"]))
 {
@@ -74,10 +81,13 @@ $movierow = mysql_fetch_array($moviequery);
                      $result=mysql_query("SELECT * FROM ratings WHERE mid='$movieid' AND userid=".$_SESSION['user']);
                      $countuser = mysql_num_rows($result);
                      if($countuser ==1){
-                        $myrating=mysql_fetch_array($result);$yy1 = $myrating['rating'];
+                        $myrating=mysql_fetch_array($result);
+                        $yy1 = $myrating['rating'];
+                        $mycomment= $myrating['comment'];
                       }
                      else{
                         $yy1 =0;
+                        $mycomment="";
                      }
                      $averagequery=mysql_query("SELECT * FROM (SELECT mid, AVG(ratings.rating) as average FROM ratings GROUP BY mid) t1 WHERE mid='$movieid'");
                      $countaverage = mysql_num_rows($averagequery);
@@ -103,9 +113,12 @@ $movierow = mysql_fetch_array($moviequery);
                         <div>
                             <div style="">
                               <div class="text-left">
-                                <form action = "<?php $_PHP_SELF ?>" method = "GET">
+                                <form action ="movie.php?id=<?php echo $movieid ?>" method = "POST">
                                 <input type="text" class="kv-fa rating-loading" name="myrating" value='<?php echo $yy1?>' data-size="sm" title="">
-                                <button class="btn btn-success btn-lg" name="rateit" value='<?php echo $movieid?>' id="submitrate" style="padding: 2px 11px;">Rate it!</button>
+                                 <hr/>
+                                <label for="inputsm">Comments:</label>
+                                <input class="form-control" name="comment" value='<?php echo $mycomment ?>' id="inputsm" type="text">
+                                <button class="btn btn-success btn-lg" name="rateit" value='<?php echo $movieid?>' id="submitrate" style="padding: 2px 11px;">Comment/Rate it!</button>
                                 </form>
                               </div>
                             </div>
@@ -189,64 +202,55 @@ $movierow = mysql_fetch_array($moviequery);
             </div>          
         </div>   
         <div class="row">
-              <hr/>
              <div class="col-sm-12">
+                <hr/>
                  <p>Description :<?php echo $movierow['description']?></p>
              </div>
-              <hr/>
-        </div>     
-        
+        </div>
+        <!--
+           <div class="row">
+                  <div class="col-sm-8">
+                     <div class="form-group">
+                         <form action ="movie.php?id=<?php //echo $movieid ?>" method = "POST">
+                         <label for="inputsm">Comments:</label>
+                         <input class="form-control" name="comment" id="inputsm" type="text">
+                          <button class="btn btn-success btn-lg" name="commentit" style="padding: 2px 11px;">Post comment</button>
+                         </form>
+                     </div>  
+                 </div>   
+            </div> 
+     -->
+     
+
         <div class="row">
+            <?php 
+            $usercommentsquery=mysql_query("SELECT * FROM (SELECT userid as user_id,mid,rating,comment FROM ratings WHERE mid='$movieid') t1 NATURAL JOIN users ORDER BY rating DESC");
+            $count=mysql_num_rows($usercommentsquery);
+            for($i=0;$i<$count;$i++){
+                $usercommentrow=mysql_fetch_assoc($usercommentsquery);
+                ?>
             <div class="col-sm-10">
                 <hr/>
                 <div class="review-block">
                     <div class="row">
                         <div class="col-sm-3">
                             <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
-                            <div class="review-block-name"><a href="#">nktailor</a></div>
-                            <div class="review-block-date">January 29, 2016<br/>1 day ago</div>
+                            <div class="review-block-name"><a href="#"><?php echo $usercommentrow['username']?></a></div>
+                            <div class="review-block-date"><?php echo $usercommentrow['email']?></div>
                         </div>
                         <div class="col-sm-9">
                             <div class="review-block-rate">
-                                <input class="kv-fa rating-loading" value=5 data-size="xs" title="">
+                                <input class="kv-fa rating-loading" value='<?php echo $usercommentrow['rating']?>' data-size="xs" title="">
                             </div>
-                            <div class="review-block-title">this was nice in buy</div>
-                            <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy. this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in buy</div>
-                        </div>
-                    </div>
-                    <hr/>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
-                            <div class="review-block-name"><a href="#">nktailor</a></div>
-                            <div class="review-block-date">January 29, 2016<br/>1 day ago</div>
-                        </div>
-                        <div class="col-sm-9">
-                            <div class="review-block-rate">
-                                <input class="kv-fa rating-loading" value=5 data-size="xs" title="">
-                            </div>
-                            <div class="review-block-title">this was nice in buy</div>
-                            <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy. this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in buy</div>
-                        </div>
-                    </div>
-                    <hr/>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
-                            <div class="review-block-name"><a href="#">nktailor</a></div>
-                            <div class="review-block-date">January 29, 2016<br/>1 day ago</div>
-                        </div>
-                        <div class="col-sm-9">
-                            <div class="review-block-rate">
-                                <input class="kv-fa rating-loading" value=5 data-size="xs" title="">
-                            </div>
-                            <div class="review-block-title">this was nice in buy</div>
-                            <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy. this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in buy</div>
+                            <div class="review-block-title"><?php echo $ratingarray[round($usercommentrow['rating'])]?></div>
+                            <div class="review-block-description"><?php echo $usercommentrow['comment']?></div>
                         </div>
                     </div>
                     <hr/>
                 </div>
             </div>
+
+            <?php } ?>
         </div>
 </div>
 

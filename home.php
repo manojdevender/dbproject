@@ -6,9 +6,9 @@ if(!isset($_SESSION['user']))
 {
 	header("Location: index.php");
 }
-if( $_GET["rateit"] ) {
-    $myrating=$_GET['myrating'];
-    $mid_rating=$_GET['rateit'];
+if( $_POST["rateit"] ) {
+    $myrating=$_POST['myrating'];
+    $mid_rating=$_POST['rateit'];
     $q=mysql_query("SELECT * FROM ratings WHERE `mid`='$mid_rating' AND userid=".$_SESSION['user']);
     $c=mysql_num_rows($q);
     if($c==1){
@@ -106,7 +106,7 @@ $userRow=mysql_fetch_array($res);
                         <div class="col-xs-12 col-md-6">
                             <div style=" width: 300px; ">
                               <div class="text-center">
-                               <form action = "<?php $_PHP_SELF ?>" method = "GET">
+                               <form action = "<?php $_PHP_SELF ?>" method = "post">
                                 <input type="text" class="kv-fa rating-loading" name="myrating" value='<?php echo $yy?>' data-size="xs" title="">
                                 <button class="btn btn-success btn-lg" name="rateit" value='<?php echo $Popularid?>' id="submitrate" style="padding: 2px 11px;">Rate it!</button>
                                 </form>
@@ -126,7 +126,9 @@ $userRow=mysql_fetch_array($res);
 <div class="container">
     <div id="products" class="row list-group">
       <?php
-       $movielatestquery=mysql_query("SELECT * FROM movie ORDER BY year desc LIMIT 6");
+       //$movielatestquery=mysql_query("SELECT * FROM movie ORDER BY year desc LIMIT 6");
+       $movieview = mysql_query("CREATE OR REPLACE VIEW movieview AS SELECT id, NAME, YEAR FROM movie ORDER BY year desc");
+       $movielatestquery=mysql_query("SELECT * FROM movieview LIMIT 6");
       for ($i=0; $i<6; $i++){
          $latestmovierow = mysql_fetch_assoc($movielatestquery);
          $latestimage = "images/moviepics/".$latestmovierow['id'].".jpg";
