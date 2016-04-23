@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 23, 2016 at 05:52 PM
+-- Generation Time: Apr 23, 2016 at 08:07 PM
 -- Server version: 5.6.28-0ubuntu0.15.04.1
 -- PHP Version: 5.6.4-4ubuntu6.4
 
@@ -267,13 +267,23 @@ INSERT INTO `moviedirectors` (`did`, `mid`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `movieview`
+--
+CREATE TABLE IF NOT EXISTS `movieview` (
+`id` int(20)
+,`NAME` varchar(50)
+,`YEAR` date
+);
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `ratings`
 --
 
 CREATE TABLE IF NOT EXISTS `ratings` (
   `mid` int(10) NOT NULL,
   `userid` int(25) NOT NULL,
-  `rating` int(10) NOT NULL,
+  `rating` float NOT NULL,
   `comment` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -304,7 +314,13 @@ INSERT INTO `ratings` (`mid`, `userid`, `rating`, `comment`) VALUES
 (10, 7, 1, ''),
 (11, 6, 2, ''),
 (11, 7, 0, ''),
-(12, 10, 5, '');
+(12, 10, 2.5, 'very'),
+(5, 10, 4, ''),
+(1, 10, 4, ''),
+(6, 10, 3, ''),
+(8, 10, 5, ''),
+(4, 10, 1, ''),
+(2, 10, 5, '');
 
 -- --------------------------------------------------------
 
@@ -353,6 +369,15 @@ INSERT INTO `users` (`user_id`, `username`, `email`, `password`) VALUES
 (6, 'bharath', 'bharath0045@gmail.com', '7616b81196ee6fe328497da3f1d9912d'),
 (9, 'hemanth', 'kota@gmail.com', '31d9bb37999652d494ba78feb642a73f'),
 (10, 'manoj', 'manojdevender@gmail.com', 'f0064aa2614c197fe192810ab40b2930');
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `movieview`
+--
+DROP TABLE IF EXISTS `movieview`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `movieview` AS select `movie`.`id` AS `id`,`movie`.`NAME` AS `NAME`,`movie`.`YEAR` AS `YEAR` from `movie` order by `movie`.`YEAR` desc;
 
 --
 -- Indexes for dumped tables
