@@ -15,7 +15,14 @@ else{
 if( $_GET["rateit"] ) {
     $myrating=$_GET['myrating'];
     $mid_rating=$_GET['rateit'];
+    $q=mysql_query("SELECT * FROM ratings WHERE `mid`='$mid_rating' AND userid=".$_SESSION['user']);
+    $c=mysql_num_rows($q);
+    if($c==1){
     $updateresult=mysql_query("UPDATE `ratings` SET `rating`='$myrating' WHERE `mid`='$mid_rating' AND userid=".$_SESSION['user']);
+    }
+    else{
+    $insertresult=mysql_query("INSERT INTO `ratings`(`mid`, `userid`, `rating`) VALUES ($mid_rating,".$_SESSION['user'].",$myrating)");
+    }
 }
 /*
 if(!isset($_SESSION["movieid"]))
@@ -237,6 +244,7 @@ $movierow = mysql_fetch_array($moviequery);
                             <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy. this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in buy</div>
                         </div>
                     </div>
+                    <hr/>
                 </div>
             </div>
         </div>

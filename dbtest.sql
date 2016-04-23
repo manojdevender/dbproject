@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 22, 2016 at 03:12 PM
+-- Generation Time: Apr 23, 2016 at 05:52 PM
 -- Server version: 5.6.28-0ubuntu0.15.04.1
 -- PHP Version: 5.6.4-4ubuntu6.4
 
@@ -201,7 +201,9 @@ INSERT INTO `genre` (`mid`, `genre`) VALUES
 (9, 'Family'),
 (10, 'Comedy'),
 (10, 'Romance'),
-(11, 'Drama');
+(11, 'Drama'),
+(12, 'Biography'),
+(12, 'Adventure');
 
 -- --------------------------------------------------------
 
@@ -214,7 +216,7 @@ CREATE TABLE IF NOT EXISTS `movie` (
   `NAME` varchar(50) NOT NULL,
   `YEAR` date NOT NULL,
   `description` varchar(400) NOT NULL DEFAULT 'This is a movie description'
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `movie`
@@ -231,7 +233,8 @@ INSERT INTO `movie` (`id`, `NAME`, `YEAR`, `description`) VALUES
 (8, 'Batman v Superman: Dawn of Justice', '2016-04-25', 'Fearing that the actions of Superman are left unchecked, Batman takes on the Man of Steel, while the world wrestles with what kind of a hero it really needs.'),
 (9, 'Zootopia (2016)', '2016-04-04', 'In a city of anthropomorphic animals, a rookie bunny cop and a cynical con artist fox must work together to uncover a conspiracy.'),
 (10, 'My Big Fat Greek Wedding ', '2016-04-25', 'A Portokalos family secret brings the beloved characters back together for an even bigger and Greeker wedding.'),
-(11, 'Fightclub', '1999-10-15', 'An insomniac office worker, looking for a way to change his life, crosses paths with a devil-may-care soap maker, forming an underground fight club that evolves into something much, much more...');
+(11, 'Fightclub', '1999-10-15', 'An insomniac office worker, looking for a way to change his life, crosses paths with a devil-may-care soap maker, forming an underground fight club that evolves into something much, much more...'),
+(12, 'The Revenant', '2016-01-08', 'A frontiersman on a fur trading expedition in the 1820s fights for survival after being mauled by a bear and left for dead by members of his own hunting team.');
 
 -- --------------------------------------------------------
 
@@ -270,36 +273,38 @@ INSERT INTO `moviedirectors` (`did`, `mid`) VALUES
 CREATE TABLE IF NOT EXISTS `ratings` (
   `mid` int(10) NOT NULL,
   `userid` int(25) NOT NULL,
-  `rating` int(10) NOT NULL
+  `rating` int(10) NOT NULL,
+  `comment` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ratings`
 --
 
-INSERT INTO `ratings` (`mid`, `userid`, `rating`) VALUES
-(1, 6, 5),
-(1, 7, 4),
-(2, 6, 3),
-(2, 7, 4),
-(3, 6, 2),
-(3, 7, 4),
-(4, 6, 4),
-(4, 7, 4),
-(5, 6, 2),
-(5, 7, 4),
-(6, 6, 5),
-(6, 7, 4),
-(7, 6, 4),
-(7, 7, 2),
-(8, 6, 4),
-(8, 7, 5),
-(9, 6, 1),
-(9, 7, 2),
-(10, 6, 5),
-(10, 7, 4),
-(11, 6, 2),
-(11, 7, 3);
+INSERT INTO `ratings` (`mid`, `userid`, `rating`, `comment`) VALUES
+(1, 6, 5, ''),
+(1, 7, 3, ''),
+(2, 6, 3, ''),
+(2, 7, 4, ''),
+(3, 6, 2, ''),
+(3, 7, 4, ''),
+(4, 6, 4, ''),
+(4, 7, 4, ''),
+(5, 6, 2, ''),
+(5, 7, 4, ''),
+(6, 6, 5, ''),
+(6, 7, 4, ''),
+(7, 6, 4, ''),
+(7, 7, 2, ''),
+(8, 6, 4, ''),
+(8, 7, 3, ''),
+(9, 6, 1, ''),
+(9, 7, 2, ''),
+(10, 6, 5, ''),
+(10, 7, 1, ''),
+(11, 6, 2, ''),
+(11, 7, 0, ''),
+(12, 10, 5, '');
 
 -- --------------------------------------------------------
 
@@ -406,7 +411,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 -- AUTO_INCREMENT for table `movie`
 --
 ALTER TABLE `movie`
-MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `users`
 --
