@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 23, 2016 at 08:07 PM
+-- Generation Time: Apr 23, 2016 at 10:13 PM
 -- Server version: 5.6.28-0ubuntu0.15.04.1
 -- PHP Version: 5.6.4-4ubuntu6.4
 
@@ -77,14 +77,15 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `password` varchar(50) NOT NULL,
   `age` int(3) NOT NULL,
   `country` varchar(25) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `admin`
 --
 
 INSERT INTO `admin` (`admin_id`, `adminname`, `email`, `password`, `age`, `country`) VALUES
-(1, 'stud', 'studadmin@gmail.com', 'f4c46b2431cac848b28cc71e5903c358', -100, 'studcountry');
+(1, 'stud', 'studadmin@gmail.com', 'f4c46b2431cac848b28cc71e5903c358', -100, 'studcountry'),
+(2, 'admin', 'admin@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 21, 'india');
 
 -- --------------------------------------------------------
 
@@ -208,6 +209,26 @@ INSERT INTO `genre` (`mid`, `genre`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `history`
+--
+
+CREATE TABLE IF NOT EXISTS `history` (
+  `userid` int(11) NOT NULL,
+  `mid` int(11) NOT NULL,
+  `rating` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `history`
+--
+
+INSERT INTO `history` (`userid`, `mid`, `rating`) VALUES
+(10, 1, 4),
+(11, 8, 4);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `movie`
 --
 
@@ -315,12 +336,22 @@ INSERT INTO `ratings` (`mid`, `userid`, `rating`, `comment`) VALUES
 (11, 6, 2, ''),
 (11, 7, 0, ''),
 (12, 10, 2.5, 'very'),
-(5, 10, 4, ''),
-(1, 10, 4, ''),
+(5, 10, 4, 'It was an awesome movie watch it'),
+(1, 10, 5, ''),
 (6, 10, 3, ''),
 (8, 10, 5, ''),
 (4, 10, 1, ''),
-(2, 10, 5, '');
+(2, 10, 5, ''),
+(8, 11, 4.5, 'this is an awesome movie ');
+
+--
+-- Triggers `ratings`
+--
+DELIMITER //
+CREATE TRIGGER `history_trigger` BEFORE UPDATE ON `ratings`
+ FOR EACH ROW INSERT INTO history values (Old.userid,old.mid,old.rating)
+//
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -344,7 +375,8 @@ INSERT INTO `userprofile` (`userid`, `gender`, `age`, `country`, `registered`) V
 (7, 'm', 15, 'india', '2015-02-15'),
 (6, 'm', 25, 'india', '2016-03-18'),
 (8, 'm', 15, 'africa', '2012-02-25'),
-(9, 'm', 14, 'usa', '2015-07-17');
+(9, 'm', 14, 'usa', '2015-07-17'),
+(11, 'm', 20, 'India', '2015-02-12');
 
 -- --------------------------------------------------------
 
@@ -357,7 +389,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
@@ -368,7 +400,8 @@ INSERT INTO `users` (`user_id`, `username`, `email`, `password`) VALUES
 (7, 'abhi', 'abhilaashdarla@gmail.com', 'f0064aa2614c197fe192810ab40b2930'),
 (6, 'bharath', 'bharath0045@gmail.com', '7616b81196ee6fe328497da3f1d9912d'),
 (9, 'hemanth', 'kota@gmail.com', '31d9bb37999652d494ba78feb642a73f'),
-(10, 'manoj', 'manojdevender@gmail.com', 'f0064aa2614c197fe192810ab40b2930');
+(10, 'manoj', 'manojdevender@gmail.com', 'f0064aa2614c197fe192810ab40b2930'),
+(11, 'hari', 'harikrishna@gmail.com', 'a9bcf1e4d7b95a22e2975c812d938889');
 
 -- --------------------------------------------------------
 
@@ -426,7 +459,7 @@ MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-MODIFY `admin_id` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `admin_id` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `directors`
 --
@@ -441,7 +474,7 @@ MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `user_id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+MODIFY `user_id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

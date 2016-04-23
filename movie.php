@@ -4,7 +4,7 @@ include_once 'dbconnect.php';
 
 if(!isset($_SESSION['user']))
 {
-	header("Location: index.php");
+    header("Location: index.php");
 }
 if( $_GET["id"] ) {
     $movieid=$_GET["id"];
@@ -62,12 +62,12 @@ $movierow = mysql_fetch_array($moviequery);
 </head>
 <body background="images/background.jpg">
 <div id="header">
-	<div id="left">
+    <div id="left">
     <label>Movie Rater</label>
     </div>
     <div id="right">
-    	<div id="content">
-        	Hello  <a href="profile.php"><?php echo $userRow['username']; ?></a>&nbsp;<a href="logout.php?logout">Sign Out</a>
+        <div id="content">
+            Hello  <a href="profile.php"><?php echo $userRow['username']; ?></a>&nbsp;<a href="logout.php?logout">Sign Out</a>
         </div>
     </div>
 </div>
@@ -132,6 +132,26 @@ $movierow = mysql_fetch_array($moviequery);
                     <input class="kv-fa rating-loading"  disabled="true" value='<?php  echo round($tt1,2)?>' data-size="xs" title="">
                 </div>
             </div>
+
+            <?php
+
+            $rate5 = mysql_query("SELECT * FROM ratings WHERE mid='$movieid'and rating >4 and rating <=5");
+            $count5 = mysql_num_rows($rate5);
+            $rate4 = mysql_query("SELECT * FROM ratings WHERE mid='$movieid'and rating >3 and rating <=4");
+            $count4 = mysql_num_rows($rate4);
+            $rate3 = mysql_query("SELECT * FROM ratings WHERE mid='$movieid'and rating >2 and rating <=3");
+            $count3 = mysql_num_rows($rate3);
+            $rate2 = mysql_query("SELECT * FROM ratings WHERE mid='$movieid'and rating >1 and rating <=2");
+            $count2 = mysql_num_rows($rate2);
+            $rate1 = mysql_query("SELECT * FROM ratings WHERE mid='$movieid'and rating >=0 and rating <=1");
+            $count1 = mysql_num_rows($rate1);
+            $Count = $count1 + $count2 + $count3 + $count4 + $count5 ;
+            $percent1 = ($count1/$Count)*100;
+            $percent2 = ($count2/$Count)*100;
+            $percent3 = ($count3/$Count)*100;
+            $percent4 = ($count4/$Count)*100;
+            $percent5 = ($count5/$Count)*100;
+            ?>
             <div class="col-sm-4">
                 <h4>Rating breakdown</h4>
                 <div class="pull-left">
@@ -140,12 +160,12 @@ $movierow = mysql_fetch_array($moviequery);
                     </div>
                     <div class="pull-left" style="width:180px;">
                         <div class="progress" style="height:9px; margin:8px 0;">
-                          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: 1000%">
+                          <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: <?php echo $percent5?>%">
                             <span class="sr-only">80% Complete (danger)</span>
                           </div>
                         </div>
                     </div>
-                    <div class="pull-right" style="margin-left:10px;">1</div>
+                    <div class="pull-right" style="margin-left:10px;"><?php echo $count5?></div>
                 </div>
                 <div class="pull-left">
                     <div class="pull-left" style="width:35px; line-height:1;">
@@ -153,12 +173,12 @@ $movierow = mysql_fetch_array($moviequery);
                     </div>
                     <div class="pull-left" style="width:180px;">
                         <div class="progress" style="height:9px; margin:8px 0;">
-                          <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="5" style="width: 80%">
+                          <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="5" style="width: <?php echo $percent4?>%">
                             <span class="sr-only">80% Complete (danger)</span>
                           </div>
                         </div>
                     </div>
-                    <div class="pull-right" style="margin-left:10px;">1</div>
+                    <div class="pull-right" style="margin-left:10px;"><?php echo $count4?></div>
                 </div>
                 <div class="pull-left">
                     <div class="pull-left" style="width:35px; line-height:1;">
@@ -166,12 +186,12 @@ $movierow = mysql_fetch_array($moviequery);
                     </div>
                     <div class="pull-left" style="width:180px;">
                         <div class="progress" style="height:9px; margin:8px 0;">
-                          <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="5" style="width: 60%">
+                          <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="5" style="width: <?php echo $percent3?>%">
                             <span class="sr-only">80% Complete (danger)</span>
                           </div>
                         </div>
                     </div>
-                    <div class="pull-right" style="margin-left:10px;">0</div>
+                    <div class="pull-right" style="margin-left:10px;"><?php echo $count3?></div>
                 </div>
                 <div class="pull-left">
                     <div class="pull-left" style="width:35px; line-height:1;">
@@ -179,12 +199,12 @@ $movierow = mysql_fetch_array($moviequery);
                     </div>
                     <div class="pull-left" style="width:180px;">
                         <div class="progress" style="height:9px; margin:8px 0;">
-                          <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="5" style="width: 40%">
+                          <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="5" style="width: <?php echo $percent2?>%">
                             <span class="sr-only">80% Complete (danger)</span>
                           </div>
                         </div>
                     </div>
-                    <div class="pull-right" style="margin-left:10px;">0</div>
+                    <div class="pull-right" style="margin-left:10px;"><?php echo $count2?></div>
                 </div>
                 <div class="pull-left">
                     <div class="pull-left" style="width:35px; line-height:1;">
@@ -192,14 +212,15 @@ $movierow = mysql_fetch_array($moviequery);
                     </div>
                     <div class="pull-left" style="width:180px;">
                         <div class="progress" style="height:9px; margin:8px 0;">
-                          <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="5" style="width: 20%">
+                          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="5" style="width: <?php echo $percent1?>%">
                             <span class="sr-only">80% Complete (danger)</span>
                           </div>
                         </div>
                     </div>
-                    <div class="pull-right" style="margin-left:10px;">0</div>
+                    <div class="pull-right" style="margin-left:10px;"><?php echo $count1?></div>
                 </div>
-            </div>          
+            </div> 
+
         </div>   
         <div class="row">
              <div class="col-sm-12">
@@ -220,8 +241,7 @@ $movierow = mysql_fetch_array($moviequery);
                  </div>   
             </div> 
      -->
-     
-
+    
         <div class="row">
             <?php 
             $usercommentsquery=mysql_query("SELECT * FROM (SELECT userid as user_id,mid,rating,comment FROM ratings WHERE mid='$movieid') t1 NATURAL JOIN users ORDER BY rating DESC");
