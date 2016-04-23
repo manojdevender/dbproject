@@ -129,7 +129,7 @@ $movierow = mysql_fetch_array($moviequery);
                 <div class="rating-block">
                     <h4>Average user rating</h4>
                     <h2 class="bold padding-bottom-7"><?php  echo round($tt1,2)?><small>/ 5</small></h2>    
-                    <input class="kv-fa rating-loading" value='<?php  echo round($tt1,2)?>' data-size="xs" title="">
+                    <input class="kv-fa rating-loading"  disabled="true" value='<?php  echo round($tt1,2)?>' data-size="xs" title="">
                 </div>
             </div>
             <div class="col-sm-4">
@@ -240,7 +240,7 @@ $movierow = mysql_fetch_array($moviequery);
                         </div>
                         <div class="col-sm-9">
                             <div class="review-block-rate">
-                                <input class="kv-fa rating-loading" value='<?php echo $usercommentrow['rating']?>' data-size="xs" title="">
+                                <input class="kv-fa rating-loading" disabled="true" value='<?php echo $usercommentrow['rating']?>' data-size="xs" title="">
                             </div>
                             <div class="review-block-title"><?php echo $ratingarray[round($usercommentrow['rating'])]?></div>
                             <div class="review-block-description"><?php echo $usercommentrow['comment']?></div>
