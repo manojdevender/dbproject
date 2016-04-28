@@ -27,7 +27,10 @@ if( $_POST["rateit"] ) {
     $updateresult=mysql_query("UPDATE `ratings` SET `rating`='$myrating',`comment`='$comment'  WHERE `mid`='$mid_rating' AND userid=".$_SESSION['user']);
     }
     else{
-    $insertresult=mysql_query("INSERT INTO `ratings`(`mid`, `userid`, `rating` ,`comment`) VALUES ($mid_rating,".$_SESSION['user'].",$myrating,$comment)");
+     $insertresult=mysql_query("INSERT INTO `ratings`(`mid`,`rating`,`comment`,`userid`) VALUES ($mid_rating,$myrating,'$comment',".$_SESSION['user'].")");
+     if(!$insertresult){
+        die('Could not update ' . mysql_error());
+      }
     }
 }
 $ratingarray= array("Awww NOOO", "Very Poor", "Poor","Ok","Good", "Excellent");
@@ -63,7 +66,7 @@ $movierow = mysql_fetch_array($moviequery);
 <body background="images/background.jpg">
 <div id="header">
     <div id="left">
-    <label>Movie Rater</label>
+    <a href="home.php"><label>Movie Rater</label></a>
     </div>
     <div id="right">
         <div id="content">

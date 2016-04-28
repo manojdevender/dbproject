@@ -15,7 +15,10 @@ if( $_POST["rateit"] ) {
     $updateresult=mysql_query("UPDATE `ratings` SET `rating`='$myrating' WHERE `mid`='$mid_rating' AND userid=".$_SESSION['user']);
     }
     else{
-    $insertresult=mysql_query("INSERT INTO `ratings`(`mid`, `userid`, `rating`) VALUES ($mid_rating,".$_SESSION['user'].",$myrating)");
+    $insertresult=mysql_query("INSERT INTO `ratings`(`mid`,`rating`,`comment`,`userid`) VALUES ($mid_rating,$myrating,'',".$_SESSION['user'].")");
+       if(!$insertresult){
+        die('Could not update ' . mysql_error());
+      }
     }
 
 }
@@ -158,7 +161,7 @@ $userRow=mysql_fetch_array($res);
                         <div class="col-xs-12 col-md-6">
                             <div style=" width: 300px; ">
                               <div class="text-center">
-                                <form action = "<?php $_PHP_SELF ?>" method = "GET">
+                                <form action = "<?php $_PHP_SELF ?>" method = "post">
                                 <input type="text" class="kv-fa rating-loading" name="myrating" value='<?php echo $yy?>' data-size="xs" title="">
                                 <button class="btn btn-success btn-lg" name="rateit" type="number" value='<?php echo $Latestid?>' id="submitrate" style="padding: 2px 11px;">Rate it!</button>
                                 </form>
@@ -214,7 +217,7 @@ $userRow=mysql_fetch_array($res);
                         <div class="col-xs-12 col-md-6">
                             <div style=" width: 300px; ">
                               <div class="text-center">
-                                <form action = "<?php $_PHP_SELF ?>" method = "GET">
+                                <form action = "<?php $_PHP_SELF ?>" method = "post">
                                  <input type="text" class="kv-fa rating-loading" name="myrating" value='<?php echo $yy1?>' data-size="xs" title="">
                                  <button class="btn btn-success btn-lg" name="rateit" value='<?php echo $movieid?>' id="submitrate" style="padding: 2px 11px;">Rate it!</button>
                                 </form>
